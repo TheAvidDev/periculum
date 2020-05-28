@@ -2,6 +2,7 @@ package dev.theavid.periculum.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+
 import dev.theavid.periculum.Periculum;
 
 public class DesktopLauncher {

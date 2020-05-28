@@ -1,8 +1,8 @@
 package dev.theavid.periculum;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
@@ -11,11 +11,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * @author TheAvidDev
  */
 // 2020-05-27 TheAvidDev - Created basic player class with movement
-public class Player {	
-	private final double VELOCITY_MINIMUM = 3000000;
-	private final double VELOCITY_MAXIMUM = 0.1;
-	private final double VELOCITY_MULTIPLIER = 0.9;
-	private final double MOVEMENT_VELOCITY = 150;
+public class Player {
+	private final double VELOCITY_MINIMUM = 0.1;
+	private final double VELOCITY_MAXIMUM = 10;
+	private final double VELOCITY_MULTIPLIER = 0.5;
+	private final double MOVEMENT_VELOCITY = 50;
 	
 	private TextureRegion[][] textures;
 	private double x = 0;
@@ -72,4 +72,3 @@ public class Player {
 	
 	public void dispose() { textures[0][0].getTexture().dispose(); }
 }
-
