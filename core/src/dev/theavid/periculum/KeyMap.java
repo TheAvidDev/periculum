@@ -10,20 +10,38 @@ import com.badlogic.gdx.Input.Keys;
  * 
  * @author TheAvidDev
  */
+// 2020-05-28 TheAvidDev - Add option to require control key to be pressed
 // 2020-05-28 TheAvidDev - Create basic directional keymaps
 public enum KeyMap {
 	UP (Keys.W, Keys.UP),
 	DOWN (Keys.S, Keys.DOWN),
 	LEFT (Keys.A, Keys.LEFT),
-	RIGHT (Keys.D, Keys.RIGHT);
+	RIGHT (Keys.D, Keys.RIGHT),
+	CONTROL (Keys.CONTROL_LEFT, Keys.CONTROL_RIGHT);
 	
 	private int[] keys;
-	
+	private boolean ctrl;
+
 	KeyMap(int... keys) {
+		this(false, keys);
+	}
+	
+	KeyMap(boolean ctrl, int... keys) {
+		this.ctrl = ctrl;
 		this.keys = keys;
 	}
 	
+	/**
+	 * Check if any key in a key map is pressed. It also has functionality to
+	 * check if either of the control (ctrl) keys are pressed, presuming the
+	 * key map requires it for activation.
+	 *
+	 * @return whether any key in the key map is pressed
+	 */
 	public boolean isPressed() {
+		if (ctrl && !KeyMap.CONTROL.isPressed()) {
+			return false;
+		}
 		for (int key : keys) {
 			if (Gdx.input.isKeyPressed(key)) {
 				return true;
