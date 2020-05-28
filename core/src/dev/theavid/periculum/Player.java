@@ -42,11 +42,10 @@ public class Player {
 		yVel *= VELOCITY_MULTIPLIER;
 		
 		float dt = Gdx.graphics.getDeltaTime();
-		// TODO: Make this cleaner with an InputManager class.
-		if (Gdx.input.isKeyPressed(Input.Keys.S)) { yVel -= MOVEMENT_VELOCITY * dt; direction = 0; }
-		if (Gdx.input.isKeyPressed(Input.Keys.W)) { yVel += MOVEMENT_VELOCITY * dt; direction = 1; }
-		if (Gdx.input.isKeyPressed(Input.Keys.D)) { xVel += MOVEMENT_VELOCITY * dt; direction = 2; }
-		if (Gdx.input.isKeyPressed(Input.Keys.A)) { xVel -= MOVEMENT_VELOCITY * dt; direction = 3; }
+		if (KeyMap.DOWN.isPressed()) { yVel -= MOVEMENT_VELOCITY * dt; direction = 0; }
+		if (KeyMap.UP.isPressed()) { yVel += MOVEMENT_VELOCITY * dt; direction = 1; }
+		if (KeyMap.RIGHT.isPressed()) { xVel += MOVEMENT_VELOCITY * dt; direction = 2; }
+		if (KeyMap.LEFT.isPressed()) { xVel -= MOVEMENT_VELOCITY * dt; direction = 3; }
 
 		if (-VELOCITY_MINIMUM < xVel && xVel < VELOCITY_MINIMUM) { xVel = 0; }
 		if (-VELOCITY_MINIMUM < yVel && yVel < VELOCITY_MINIMUM) { yVel = 0; }
