@@ -19,12 +19,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 // 2020-05-28 TheAvidDev - cleaned up code, removed libGDX defaults
 // 2020-05-27 hirundinidae - added level creation and rendering
 public class Periculum extends ApplicationAdapter {
-  private final int TILE_WIDTH = 16;
-  private final int VIEWPORT_WIDTH = 16;
+    private final int TILE_WIDTH = 16;
+    private final int VIEWPORT_WIDTH = 16;
+
+    public static Debugger debugger;
+    public static Level level;
 
     SpriteBatch batch;
     Player player;
-    Level level;
     OrthographicCamera camera;
 
     @Override
@@ -35,6 +37,7 @@ public class Periculum extends ApplicationAdapter {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 320, 320 * (4 / 3));
         level.create();
+        debugger = new Debugger(player, level, camera);
     }
 
     @Override
@@ -51,6 +54,7 @@ public class Periculum extends ApplicationAdapter {
             0
         );
         camera.update();
+        debugger.update();
 
         // Drawing
         Gdx.gl.glClearColor(0.506f, 0.984f, 0.294f, 1);
@@ -63,6 +67,8 @@ public class Periculum extends ApplicationAdapter {
         batch.end();
 
         level.renderForeground(camera);
+
+        debugger.render();
     }
 
     @Override
@@ -82,7 +88,7 @@ public class Periculum extends ApplicationAdapter {
       if ((float) width / (float) height > (float) height / (float) width) {
           float scale = (float) width / (float) height;
           camera.viewportWidth = TILE_WIDTH * VIEWPORT_WIDTH * scale;
-            camera.viewportHeight = TILE_WIDTH * VIEWPORT_WIDTH;
+          camera.viewportHeight = TILE_WIDTH * VIEWPORT_WIDTH;
       } else {
           float scale = (float) height / (float) width;
           camera.viewportWidth = TILE_WIDTH * VIEWPORT_WIDTH;
