@@ -12,10 +12,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * @author hirundinidae
  * @author TheAvidDev
  */
+// 2020-05-29 TheAvidDev - allowed window resizing and scale definitions
 // 2020-05-28 hirundinidae - created camera and its movement based on player
 // 2020-05-28 TheAvidDev - cleaned up code, removed libGDX defaults
 // 2020-05-27 hirundinidae - added level creation and rendering
 public class Periculum extends ApplicationAdapter {
+  private final int TILE_WIDTH = 16;
+  private final int VIEWPORT_WIDTH = 16;
+
     SpriteBatch batch;
     Player player;
     Level level;
@@ -27,7 +31,7 @@ public class Periculum extends ApplicationAdapter {
         player = new Player();
         level = new Level();
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 320, 320 * (800 / 480));
+        camera.setToOrtho(false, 320, 320 * (4 / 3));
         level.create();
     }
 
@@ -52,5 +56,24 @@ public class Periculum extends ApplicationAdapter {
         batch.dispose();
         player.dispose();
         level.dispose();
+    }
+
+    /**
+     * This method resizes the camera's viewport while maintaining scale to
+     * allow any window size. It will base the scale off of the shortest side
+     * length, so ultra wide screens won't be unnecessarily zoomed in.
+     */
+    @Override
+    public void resize(int width, int height) {
+        if ((float) width / (float) height > (float) height / (float) width) {
+        float scale = (float) width / (float) height;
+        camera.viewportWidth = TILE_WIDTH * VIEWPORT_WIDTH * scale;
+            camera.viewportHeight = TILE_WIDTH * VIEWPORT_WIDTH;
+      } else {
+        float scale = (float) height / (float) width;
+        camera.viewportWidth = TILE_WIDTH * VIEWPORT_WIDTH;
+          camera.viewportHeight = TILE_WIDTH * VIEWPORT_WIDTH * scale;
+      }
+      camera.update();
     }
 }
