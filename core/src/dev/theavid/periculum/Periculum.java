@@ -39,6 +39,7 @@ public class Periculum extends ApplicationAdapter {
 
     @Override
     public void render() {
+        // Updating
         player.update();
         /**
          * Rounding to tenth of a pixel removes extremely common black lines
@@ -51,7 +52,8 @@ public class Periculum extends ApplicationAdapter {
         );
         camera.update();
 
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        // Drawing
+        Gdx.gl.glClearColor(0.506f, 0.984f, 0.294f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         level.renderBackground(camera);
 
@@ -77,13 +79,13 @@ public class Periculum extends ApplicationAdapter {
      */
     @Override
     public void resize(int width, int height) {
-        if ((float) width / (float) height > (float) height / (float) width) {
-        float scale = (float) width / (float) height;
-        camera.viewportWidth = TILE_WIDTH * VIEWPORT_WIDTH * scale;
+      if ((float) width / (float) height > (float) height / (float) width) {
+          float scale = (float) width / (float) height;
+          camera.viewportWidth = TILE_WIDTH * VIEWPORT_WIDTH * scale;
             camera.viewportHeight = TILE_WIDTH * VIEWPORT_WIDTH;
       } else {
-        float scale = (float) height / (float) width;
-        camera.viewportWidth = TILE_WIDTH * VIEWPORT_WIDTH;
+          float scale = (float) height / (float) width;
+          camera.viewportWidth = TILE_WIDTH * VIEWPORT_WIDTH;
           camera.viewportHeight = TILE_WIDTH * VIEWPORT_WIDTH * scale;
       }
       camera.update();
