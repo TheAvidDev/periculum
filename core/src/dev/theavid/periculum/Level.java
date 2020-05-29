@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
  * Draws the map of the level.
  * 
  * @author hirundinidae
+ * @author TheAvidDev
  */
 // 2020-05-29 TheAvidDev - render background and foreground layers separately
 // 2020-05-28 hirundinidae - removed unused interface, started using camera  
