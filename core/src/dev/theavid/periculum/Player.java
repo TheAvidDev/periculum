@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * 
  * @author TheAvidDev
  */
+// 2020-05-29 TheAvidDev - Fix player jittering by passing position as float
 // 2020-05-27 TheAvidDev - Created basic player class with movement
 public class Player {
 	private final double VELOCITY_MINIMUM = 0.1;
@@ -67,8 +68,8 @@ public class Player {
 	 * While the {@link SpriteBatch} can use floats to draw a texture, we'll
 	 * cast it to an integer to align it to full pixels.
 	 */
-	public int getX() { return (int) x; }
-	public int getY() { return (int) y; }
+	public float getX() { return (float) x; }
+	public float getY() { return (float) y; }
 	
 	public void dispose() { textures[0][0].getTexture().dispose(); }
 }
