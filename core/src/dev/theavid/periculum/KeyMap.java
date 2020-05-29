@@ -17,7 +17,8 @@ public enum KeyMap {
 	DOWN (Keys.S, Keys.DOWN),
 	LEFT (Keys.A, Keys.LEFT),
 	RIGHT (Keys.D, Keys.RIGHT),
-	CONTROL (Keys.CONTROL_LEFT, Keys.CONTROL_RIGHT);
+	CONTROL (Keys.CONTROL_LEFT, Keys.CONTROL_RIGHT),
+	DEBUG (true, Keys.D);
 	
 	private int[] keys;
 	private boolean ctrl;
@@ -38,15 +39,18 @@ public enum KeyMap {
 	 *
 	 * @return whether any key in the key map is pressed
 	 */
-	public boolean isPressed() {
+	public boolean isPressed(boolean justPressed) {
 		if (ctrl && !KeyMap.CONTROL.isPressed()) {
 			return false;
 		}
 		for (int key : keys) {
-			if (Gdx.input.isKeyPressed(key)) {
+			if ((justPressed && Gdx.input.isKeyJustPressed(key))
+					|| (!justPressed && Gdx.input.isKeyPressed(key))) {
 				return true;
 			}
 		}
 		return false;
 	}
+
+	public boolean isPressed() { return isPressed(false); }
 }
