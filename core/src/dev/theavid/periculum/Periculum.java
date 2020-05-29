@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * @author hirundinidae
  * @author TheAvidDev
  */
+//2020-05-29 TheAvidDev - render background and foreground layers separately
 // 2020-05-29 TheAvidDev - allowed window resizing and scale definitions
 // 2020-05-28 hirundinidae - created camera and its movement based on player
 // 2020-05-28 TheAvidDev - cleaned up code, removed libGDX defaults
@@ -43,12 +44,14 @@ public class Periculum extends ApplicationAdapter {
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        level.render(camera);
+        level.renderBackground(camera);
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(player.getTextureRegion(), player.getX(), player.getY());
         batch.end();
+
+        level.renderForeground(camera);
     }
 
     @Override
