@@ -2,7 +2,6 @@ package dev.theavid.periculum;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
@@ -63,13 +62,11 @@ public class Player {
 	public TextureRegion getTextureRegion() {
 		return textures[direction][animationFrame];
 	}
-		
-	/**
-	 * While the {@link SpriteBatch} can use floats to draw a texture, we'll
-	 * cast it to an integer to align it to full pixels.
-	 */
+
 	public float getX() { return (float) x; }
 	public float getY() { return (float) y; }
-	
+	public float getXVel() { return (float) xVel; }
+	public float getYVel() { return (float) yVel; }
+
 	public void dispose() { textures[0][0].getTexture().dispose(); }
 }
