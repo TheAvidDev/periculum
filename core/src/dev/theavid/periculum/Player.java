@@ -97,18 +97,17 @@ public class Player {
 	 * 
 	 * @return the new y position for the player
 	 */
-	// FIXME(TheAvidDev): getting partially stuck in walls
 	private double getNewY() {
 		if (yVel < 0) {
 			for (int i = 0; i >= (int) Math.floor(yVel); i--) {
-				if (Periculum.level.isColliding((int) x + 1, (int) y + i, 14, 16)) {
+				if (Periculum.level.isColliding((int) x + 1, (int) y + i - 1, 14, 16)) {
 					return (int) y + i;
 				}
 			}
 			return (int) y + (int) Math.floor(yVel);
 		} else if (yVel > 0) {
 			for (int i = 0; i <= (int) Math.ceil(yVel); i++) {
-				if (Periculum.level.isColliding((int) x + 1, (int) y + i, 14, 16)) {
+				if (Periculum.level.isColliding((int) x + 1, (int) y + i + 1, 14, 16)) {
 					return (int) y + i;
 				}
 			}
