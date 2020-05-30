@@ -20,8 +20,8 @@ public enum KeyMap {
 	CONTROL (Keys.CONTROL_LEFT, Keys.CONTROL_RIGHT),
 	DEBUG (true, Keys.D);
 
-	private int[] keys;
-	private boolean ctrl;
+	private final int[] keys;
+	private final boolean ctrl;
 
 	KeyMap(int... keys) {
 		this(false, keys);
