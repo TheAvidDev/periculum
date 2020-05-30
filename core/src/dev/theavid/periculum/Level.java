@@ -47,6 +47,16 @@ public class Level {
 		Rectangle testRect = new Rectangle(x, y, width, height);
 		int xMap = (int) (x / 16);
 		int yMap = (int) ((y - 11) / 16);
+
+		/**
+		 * This assumes that you can't collide with anything if you are *on* the edge
+		 * tile or anywhere further out of bounds. Ideally, it shouldn't be possible to
+		 * get here, but if it does happen, crashing isn't ideal.
+		 */
+		if (!(1 < xMap && xMap < collisionMap.length - 1
+				&& 1 < yMap && yMap < collisionMap[0].length - 1)) {
+			return false;
+		}
 		for (int xm = xMap - 1; xm <= xMap + 1; xm++) {
 			for (int ym = yMap - 1; ym <= yMap + 1; ym++) {
 				Rectangle collisionRect = new Rectangle(xm * 16, ym * 16 + 11, 16, 16);
