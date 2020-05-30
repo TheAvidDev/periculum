@@ -4,74 +4,64 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 /**
- * Main game class.
+ * Main game class which handles game states and the transitions between them.
  *
  * @author hirundinidae
  * @author TheAvidDev
  */
-// 2020-05-29 TheAvidDev - Decrease occurrences of black lines between tiles
-// 2020-05-29 TheAvidDev - Render background and foreground layers separately
-// 2020-05-29 TheAvidDev - Allow window resizing and scale definitions
-// 2020-05-28 hirundinidae - Create camera and its movement based on player
-// 2020-05-28 TheAvidDev - Clean up code, removed libGDX defaults
-// 2020-05-27 hirundinidae - Add level creation and rendering
+// 2020-05-30 Switched to a game state based approach
 public class Periculum extends ApplicationAdapter {
 	private final int TILE_WIDTH = 16;
 	private final int VIEWPORT_WIDTH = 16;
 
-	public static Debugger debugger;
-	public static Level level;
-
-	SpriteBatch batch;
-	Player player;
-	OrthographicCamera camera;
+	private OrthographicCamera camera;
+	private ShapeRenderer shapeRenderer;
+	private GameState currentGameState;
+	private float transitionCounter = -1;
 
 	@Override
 	public void create() {
-		batch = new SpriteBatch();
-		player = new Player();
-		level = new Level();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 320, 320 * (4 / 3));
-		level.create();
-		debugger = new Debugger(player, level, camera);
+		shapeRenderer = new ShapeRenderer();
+		currentGameState = new SplashGameState(camera);
 	}
 
 	@Override
 	public void render() {
-		// Updating
-		player.update();
+		currentGameState.update();
+		currentGameState.render();
+
 		/**
-		 * Rounding to tenth of a pixel removes extremely common black lines between
-		 * tiles. However, this doesn't fix them on all resolutions.
+		 * Update the transition counter and transition to the playing game
+		 * state if the N key is pressed.
 		 */
-		camera.position.set(Math.round(player.getX() * 10f) / 10f, Math.round(player.getY() * 10f) / 10f, 0);
-		camera.update();
-		debugger.update();
-
-		// Drawing
-		Gdx.gl.glClearColor(0.506f, 0.984f, 0.294f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		level.renderBackground(camera);
-
-		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
-		batch.draw(player.getTextureRegion(), player.getX(), player.getY());
-		batch.end();
-
-		level.renderForeground(camera);
-
-		debugger.render();
+		if (transitionCounter != 0 || KeyMap.TRANSITION.isPressed(true)) {
+			transitionCounter += Gdx.graphics.getDeltaTime();
+			Gdx.gl.glEnable(GL20.GL_BLEND);
+			Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+			shapeRenderer.begin(ShapeType.Filled);
+			shapeRenderer.setColor(0, 0, 0, Math.abs(transitionCounter));
+			shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			shapeRenderer.end();
+			Gdx.gl.glDisable(GL20.GL_BLEND);
+			if (transitionCounter < 0 && transitionCounter + Gdx.graphics.getDeltaTime() > 0) {
+				transitionCounter = 0;
+			}
+		}
+		if (transitionCounter >= 1) {
+			transitionCounter = -1;
+			currentGameState = new PlayingGameState(camera);
+		}
 	}
 
 	@Override
 	public void dispose() {
-		batch.dispose();
-		player.dispose();
-		level.dispose();
+		currentGameState.dispose();
 	}
 
 	/**

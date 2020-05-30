@@ -18,7 +18,8 @@ public enum KeyMap {
 	LEFT (Keys.A, Keys.LEFT),
 	RIGHT (Keys.D, Keys.RIGHT),
 	CONTROL (Keys.CONTROL_LEFT, Keys.CONTROL_RIGHT),
-	DEBUG (true, Keys.D);
+	DEBUG (true, Keys.D),
+	TRANSITION (Keys.N);
 
 	private final int[] keys;
 	private final boolean ctrl;
