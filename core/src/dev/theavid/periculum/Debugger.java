@@ -137,9 +137,9 @@ public class Debugger {
 			}
 		}
 		shapeRenderer.setColor(0, 0, 0, 0.5f);
-		shapeRenderer.rect(playerRect.x + 1, playerRect.y, playerRect.width - 2, playerRect.height);
+		shapeRenderer.rect(playerRect.x, playerRect.y, playerRect.width, playerRect.height);
 		shapeRenderer.setColor(1, 1, 1, 0.5f);
-		shapeRenderer.rect(playerRect.x + 2, playerRect.y + 1, playerRect.width - 4, playerRect.height - 2);
+		shapeRenderer.rect(playerRect.x + 1, playerRect.y + 1, playerRect.width - 2, playerRect.height - 2);
 	}
 
 	/**
