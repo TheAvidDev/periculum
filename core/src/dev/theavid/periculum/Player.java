@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * 
  * @author TheAvidDev
  */
+// 2020-05-20 TheAvidDev - Added player collision
 // 2020-05-29 TheAvidDev - Fix player jittering by passing position as float
 // 2020-05-27 TheAvidDev - Created basic player class with movement
 public class Player {
@@ -36,11 +37,11 @@ public class Player {
 	 * and maximum velocity for easier movement checking and better gameplay.
 	 */
 	public void update() {
-		x += xVel;
-		y += yVel;
+		x = Math.round(getNewX() * 10f) / 10f;
+		y = Math.round(getNewY() * 10f) / 10f;
 		xVel *= VELOCITY_MULTIPLIER;
 		yVel *= VELOCITY_MULTIPLIER;
-		
+
 		float dt = Gdx.graphics.getDeltaTime();
 		if (KeyMap.DOWN.isPressed()) { yVel -= MOVEMENT_VELOCITY * dt; direction = 0; }
 		if (KeyMap.UP.isPressed()) { yVel += MOVEMENT_VELOCITY * dt; direction = 1; }
@@ -53,6 +54,63 @@ public class Player {
 		if (yVel < -VELOCITY_MAXIMUM) { yVel = -VELOCITY_MAXIMUM; }
 		if (xVel > VELOCITY_MAXIMUM) { xVel = VELOCITY_MAXIMUM; }
 		if (xVel < -VELOCITY_MAXIMUM) { xVel = -VELOCITY_MAXIMUM; }
+	}
+	
+	/**
+	 * Attempt to move the player up to xVel but stop if a collision is
+	 * detected early.
+	 * @return the new x position for the player
+	 */
+	private double getNewX() {
+		if (xVel < 0) {
+			for (int i = 0; i >= (int) Math.floor(xVel); i --) {
+				/**
+				 * x+i (without any +#) because -1 for trying to move one less
+				 * x and +1 to center the 14 wide character. +1-1 cancel out.
+				 */
+				if (Periculum.level.isColliding((int) x+i, (int) y, 14, 16)) {
+					return (int)x+i;
+				}
+			}
+			return (int) x + (int) Math.floor(xVel);
+		} else if (xVel > 0) {
+			for (int i = 0; i <= (int) Math.ceil(xVel); i ++) {
+				/**
+				 * x+2 because +1 for trying to move one more x and another +1
+				 * to center the 14 wide character.
+				 */
+				if (Periculum.level.isColliding((int) x+i+2, (int) y, 14, 16)) {
+					return (int)x+i;
+				}
+			}
+			return (int) x + (int) Math.ceil(xVel);
+		}
+		return x;
+	}
+
+	/**
+	 * Attempt to move the player up to yVel but stop if a collision is
+	 * detected early.
+	 * @return the new y position for the player
+	 */
+	// FIXME(TheAvidDev): getting partially stuck in walls
+	private double getNewY() {
+		if (yVel < 0) {
+			for (int i = 0; i >= (int) Math.floor(yVel); i --) {
+				if (Periculum.level.isColliding((int) x+1, (int) y+i, 14, 16)) {
+					return (int)y+i;
+				}
+			}
+			return (int) y + (int) Math.floor(yVel);
+		} else if (yVel > 0) {
+			for (int i = 0; i <= (int) Math.ceil(yVel); i ++) {
+				if (Periculum.level.isColliding((int) x+1, (int) y+i, 14, 16)) {
+					return (int)y+i;
+				}
+			}
+			return (int) y + (int) Math.ceil(yVel);
+		}
+		return y;
 	}
 	
 	/**
