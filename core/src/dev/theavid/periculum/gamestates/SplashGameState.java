@@ -1,4 +1,4 @@
-package dev.theavid.periculum;
+package dev.theavid.periculum.gamestates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;

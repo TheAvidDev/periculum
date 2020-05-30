@@ -1,8 +1,11 @@
-package dev.theavid.periculum;
+package dev.theavid.periculum.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
+import dev.theavid.periculum.KeyMap;
+import dev.theavid.periculum.gamestates.PlayingGameState;
 
 /**
  * The main player class which the user has control over.

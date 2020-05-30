@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
+import dev.theavid.periculum.entities.Player;
+
 /**
  * A debugging class to help with fixing problems and finding bugs.
  * 

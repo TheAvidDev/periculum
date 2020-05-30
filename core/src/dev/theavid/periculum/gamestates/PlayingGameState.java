@@ -1,9 +1,13 @@
-package dev.theavid.periculum;
+package dev.theavid.periculum.gamestates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import dev.theavid.periculum.Debugger;
+import dev.theavid.periculum.Level;
+import dev.theavid.periculum.entities.Player;
 
 /**
  * The main state in which the player plays with a level and moving camera.

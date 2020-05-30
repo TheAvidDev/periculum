@@ -7,6 +7,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
+import dev.theavid.periculum.gamestates.GameState;
+import dev.theavid.periculum.gamestates.PlayingGameState;
+import dev.theavid.periculum.gamestates.SplashGameState;
+
 /**
  * Main game class which handles game states and the transitions between them.
  *

@@ -1,4 +1,4 @@
-package dev.theavid.periculum;
+package dev.theavid.periculum.entities;
 
 /**
  * Entity class 
