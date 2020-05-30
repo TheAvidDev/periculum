@@ -21,73 +21,74 @@ public class Debugger {
 	private Player player;
 	private Level level;
 	private OrthographicCamera camera;
-	
+
 	private ShapeRenderer shapeRenderer = new ShapeRenderer();
 	private Batch batch = new SpriteBatch();
 	private BitmapFont font = new BitmapFont();
 	private boolean enabled = false;
-	
+
 	public Debugger(Player player, Level level, OrthographicCamera camera) {
 		this.player = player;
 		this.level = level;
 		this.camera = camera;
 	}
-	
+
 	/**
-	 * Alternate whether debugging should be enabled or not on the DEBUG key
-	 * map being just pressed.
+	 * Alternate whether debugging should be enabled or not on the DEBUG key map
+	 * being just pressed.
 	 */
 	public void update() {
 		if (KeyMap.DEBUG.isPressed(true)) {
 			enabled = !enabled;
 		}
 	}
-	
+
 	public void render() {
-		if (!enabled) return;
-		
+		if (!enabled)
+			return;
+
 		/**
 		 * Transparency blending section.
 		 */
-        Gdx.gl.glEnable(GL20.GL_BLEND);
-        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-    	shapeRenderer.setProjectionMatrix(camera.combined);
-    	shapeRenderer.begin(ShapeType.Filled);
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		shapeRenderer.setProjectionMatrix(camera.combined);
+		shapeRenderer.begin(ShapeType.Filled);
 		debugLevelCollisions();
 		debugMouse();
-    	shapeRenderer.end();
-        Gdx.gl.glDisable(GL20.GL_BLEND);
+		shapeRenderer.end();
+		Gdx.gl.glDisable(GL20.GL_BLEND);
 
-        /**
-         * Opaque section.
-         */
-    	batch.begin();
-    	debugPlayer();
-    	batch.end();
+		/**
+		 * Opaque section.
+		 */
+		batch.begin();
+		debugPlayer();
+		batch.end();
 	}
-	
+
 	public void dispose() {
 		shapeRenderer.dispose();
 		batch.dispose();
 		font.dispose();
 	}
-	
+
 	/**
-	 * Draw filled rectangles around where the mouse is in relation to the
-	 * level. Two separate rectangles are drawn: one for the normal, aligned
-	 * tiles, and another for the offset tiles such as the roof.
+	 * Draw filled rectangles around where the mouse is in relation to the level.
+	 * Two separate rectangles are drawn: one for the normal, aligned tiles, and
+	 * another for the offset tiles such as the roof.
 	 */
 	private void debugMouse() {
-	    Vector3 mousePos = new Vector3();
-	    mousePos.x = Gdx.input.getX();
-	    mousePos.y = Gdx.input.getY();
-	    mousePos.z = 0;
-	    camera.unproject(mousePos);
+		Vector3 mousePos = new Vector3();
+		mousePos.x = Gdx.input.getX();
+		mousePos.y = Gdx.input.getY();
+		mousePos.z = 0;
+		camera.unproject(mousePos);
 
 		shapeRenderer.setColor(0, 0, 0, 0.5f);
-		shapeRenderer.rect((int) (mousePos.x/16) * 16, (int) ((mousePos.y - 11)/16) * 16 + 11, 16, 16);
+		shapeRenderer.rect((int) (mousePos.x / 16) * 16, (int) ((mousePos.y - 11) / 16) * 16 + 11, 16, 16);
 		shapeRenderer.setColor(1, 1, 1, 0.5f);
-		shapeRenderer.rect((int) (mousePos.x/16) * 16, (int) (mousePos.y/16) * 16, 16, 16);
+		shapeRenderer.rect((int) (mousePos.x / 16) * 16, (int) (mousePos.y / 16) * 16, 16, 16);
 	}
 
 	/**
@@ -107,70 +108,47 @@ public class Debugger {
 	 *     is drawn there.
 	 */
 	private void debugLevelCollisions() {
-        shapeRenderer.setColor(0, 0, 1, 0.5f);
-    	for (int x = 0; x < level.getCollisionMap().length; x ++) {
-        	for (int y = 0; y < level.getCollisionMap()[0].length; y ++) {
-        		if (level.getCollisionMap()[x][y]) {
-        			shapeRenderer.rect(x*16, y*16 + 11, 16, 16);
-                }
-            }
-        }
-    	
-    	/**
-    	 * Read the [*] above for why this is offset by a pixel.
-    	 */
-    	Rectangle playerRect = new Rectangle(player.getX(), player.getY()-1, 16, 18);
-    	int xMap = (int) (player.getX() / 16);
-    	int yMap = (int) ((player.getY() - 11) / 16);
-    	for (int xm = xMap-1; xm <= xMap+1; xm ++) {
-    		for (int ym = yMap-1; ym <= yMap+1; ym ++) {
-    			Rectangle collisionRect = new Rectangle(xm*16, ym*16+11, 16, 16);
-    			if (level.getCollisionMap()[xm][ym] && collisionRect.overlaps(playerRect)) {
-    				shapeRenderer.setColor(0, 1, 0, 0.5f);
-    			} else {
-    				shapeRenderer.setColor(1, 0, 0, 0.5f);
-    			}
-    			if (level.getCollisionMap()[xm][ym]) {
-    				shapeRenderer.rect(collisionRect.x, collisionRect.y, collisionRect.width, collisionRect.height);
-    			}
-        	}
-    	}
-    	shapeRenderer.setColor(0, 0, 0, 0.5f);
-    	shapeRenderer.rect(playerRect.x, playerRect.y, playerRect.width, playerRect.height);
-    	shapeRenderer.setColor(1, 1, 1, 0.5f);
-    	shapeRenderer.rect(playerRect.x+1, playerRect.y+1, playerRect.width-2, playerRect.height-2);
+		shapeRenderer.setColor(0, 0, 1, 0.5f);
+		for (int x = 0; x < level.getCollisionMap().length; x++) {
+			for (int y = 0; y < level.getCollisionMap()[0].length; y++) {
+				if (level.getCollisionMap()[x][y]) {
+					shapeRenderer.rect(x * 16, y * 16 + 11, 16, 16);
+				}
+			}
+		}
+
+		/**
+		 * Read the [*] above for why this is offset by a pixel.
+		 */
+		Rectangle playerRect = new Rectangle(player.getX(), player.getY() - 1, 16, 18);
+		int xMap = (int) (player.getX() / 16);
+		int yMap = (int) ((player.getY() - 11) / 16);
+		for (int xm = xMap - 1; xm <= xMap + 1; xm++) {
+			for (int ym = yMap - 1; ym <= yMap + 1; ym++) {
+				Rectangle collisionRect = new Rectangle(xm * 16, ym * 16 + 11, 16, 16);
+				if (level.getCollisionMap()[xm][ym] && collisionRect.overlaps(playerRect)) {
+					shapeRenderer.setColor(0, 1, 0, 0.5f);
+				} else {
+					shapeRenderer.setColor(1, 0, 0, 0.5f);
+				}
+				if (level.getCollisionMap()[xm][ym]) {
+					shapeRenderer.rect(collisionRect.x, collisionRect.y, collisionRect.width, collisionRect.height);
+				}
+			}
+		}
+		shapeRenderer.setColor(0, 0, 0, 0.5f);
+		shapeRenderer.rect(playerRect.x, playerRect.y, playerRect.width, playerRect.height);
+		shapeRenderer.setColor(1, 1, 1, 0.5f);
+		shapeRenderer.rect(playerRect.x + 1, playerRect.y + 1, playerRect.width - 2, playerRect.height - 2);
 	}
-	
+
 	/**
 	 * Writes important info about the player in the upper left hand corner.
 	 */
 	private void debugPlayer() {
-		String debug = "X: " + player.getX() + "\n"
-			+ "Y: " + player.getY() + "\n"
-			+ "XVel: " + player.getXVel() + "\n"
-			+ "YVel: " + player.getYVel();
+		String debug = "X: " + player.getX() + "\n" + "Y: " + player.getY() + "\n" + "XVel: " + player.getXVel() + "\n"
+				+ "YVel: " + player.getYVel();
 		font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-		font.draw(batch, debug, 10, camera.viewportHeight*2-40);
+		font.draw(batch, debug, 10, camera.viewportHeight * 2 - 40);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

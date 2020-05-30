@@ -17,7 +17,7 @@ public class Player {
 	private final double VELOCITY_MAXIMUM = 10;
 	private final double VELOCITY_MULTIPLIER = 0.5;
 	private final double MOVEMENT_VELOCITY = 50;
-	
+
 	private TextureRegion[][] textures;
 	private double x = 0;
 	private double y = 0;
@@ -25,18 +25,18 @@ public class Player {
 	private double yVel = 0;
 	private int animationFrame = 0;
 	private int direction = 0;
-	
+
 	// TODO: Switch to some entity enum
 	public Player() {
 		x = 1260;
 		y = 1010;
 		textures = TextureRegion.split(new Texture("entities/player.png"), 16, 16);
 	}
-	
+
 	/**
 	 * Updates the player's position and velocities, decreasing the velocity
-	 * gradually by multiplying it by VELOCITY_MULTIPLIER. Also add a minimum
-	 * and maximum velocity for easier movement checking and better gameplay.
+	 * gradually by multiplying it by VELOCITY_MULTIPLIER. Also add a minimum and
+	 * maximum velocity for easier movement checking and better gameplay.
 	 */
 	public void update() {
 		x = Math.round(getNewX() * 10f) / 10f;
@@ -57,32 +57,33 @@ public class Player {
 		if (xVel > VELOCITY_MAXIMUM) { xVel = VELOCITY_MAXIMUM; }
 		if (xVel < -VELOCITY_MAXIMUM) { xVel = -VELOCITY_MAXIMUM; }
 	}
-	
+
 	/**
-	 * Attempt to move the player up to xVel but stop if a collision is
-	 * detected early.
+	 * Attempt to move the player up to xVel but stop if a collision is detected
+	 * early.
+	 * 
 	 * @return the new x position for the player
 	 */
 	private double getNewX() {
 		if (xVel < 0) {
-			for (int i = 0; i >= (int) Math.floor(xVel); i --) {
+			for (int i = 0; i >= (int) Math.floor(xVel); i--) {
 				/**
-				 * x+i (without any +#) because -1 for trying to move one less
-				 * x and +1 to center the 14 wide character. +1-1 cancel out.
+				 * x+i (without any +#) because -1 for trying to move one less x and +1 to
+				 * center the 14 wide character. +1-1 cancel out.
 				 */
-				if (Periculum.level.isColliding((int) x+i, (int) y, 14, 16)) {
-					return (int)x+i;
+				if (Periculum.level.isColliding((int) x + i, (int) y, 14, 16)) {
+					return (int) x + i;
 				}
 			}
 			return (int) x + (int) Math.floor(xVel);
 		} else if (xVel > 0) {
-			for (int i = 0; i <= (int) Math.ceil(xVel); i ++) {
+			for (int i = 0; i <= (int) Math.ceil(xVel); i++) {
 				/**
-				 * x+2 because +1 for trying to move one more x and another +1
-				 * to center the 14 wide character.
+				 * x+2 because +1 for trying to move one more x and another +1 to center the 14
+				 * wide character.
 				 */
-				if (Periculum.level.isColliding((int) x+i+2, (int) y, 14, 16)) {
-					return (int)x+i;
+				if (Periculum.level.isColliding((int) x + i + 2, (int) y, 14, 16)) {
+					return (int) x + i;
 				}
 			}
 			return (int) x + (int) Math.ceil(xVel);
@@ -91,33 +92,34 @@ public class Player {
 	}
 
 	/**
-	 * Attempt to move the player up to yVel but stop if a collision is
-	 * detected early.
+	 * Attempt to move the player up to yVel but stop if a collision is detected
+	 * early.
+	 * 
 	 * @return the new y position for the player
 	 */
 	// FIXME(TheAvidDev): getting partially stuck in walls
 	private double getNewY() {
 		if (yVel < 0) {
-			for (int i = 0; i >= (int) Math.floor(yVel); i --) {
-				if (Periculum.level.isColliding((int) x+1, (int) y+i, 14, 16)) {
-					return (int)y+i;
+			for (int i = 0; i >= (int) Math.floor(yVel); i--) {
+				if (Periculum.level.isColliding((int) x + 1, (int) y + i, 14, 16)) {
+					return (int) y + i;
 				}
 			}
 			return (int) y + (int) Math.floor(yVel);
 		} else if (yVel > 0) {
-			for (int i = 0; i <= (int) Math.ceil(yVel); i ++) {
-				if (Periculum.level.isColliding((int) x+1, (int) y+i, 14, 16)) {
-					return (int)y+i;
+			for (int i = 0; i <= (int) Math.ceil(yVel); i++) {
+				if (Periculum.level.isColliding((int) x + 1, (int) y + i, 14, 16)) {
+					return (int) y + i;
 				}
 			}
 			return (int) y + (int) Math.ceil(yVel);
 		}
 		return y;
 	}
-	
+
 	/**
 	 * @return the appropriate texture region for the player's direction and
-	 * animation frame.
+	 *         animation frame.
 	 */
 	public TextureRegion getTextureRegion() {
 		return textures[direction][animationFrame];
