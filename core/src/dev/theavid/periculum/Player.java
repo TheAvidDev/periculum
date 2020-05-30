@@ -28,6 +28,8 @@ public class Player {
 	
 	// TODO: Switch to some entity enum
 	public Player() {
+		x = 1260;
+		y = 1010;
 		textures = TextureRegion.split(new Texture("entities/player.png"), 16, 16);
 	}
 	
