@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 
 /**
  * Draws the map of the level.
@@ -13,7 +14,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
  * @author hirundinidae
  * @author TheAvidDev
  */
-// 2020-05-29 TheAvidDev - add tile collision
+// 2020-05-29 TheAvidDev - add tile collision and rectangle collision
 // 2020-05-29 TheAvidDev - render background and foreground layers separately
 // 2020-05-28 hirundinidae - removed unused interface, started using camera  
 // 2020-05-27 hirundinidae - Tiled integration to libGDX, level drawing 
@@ -30,6 +31,31 @@ public class Level {
         map = new TmxMapLoader().load("tiles/map.tmx");
         makeCollisionMap();
         renderer = new OrthogonalTiledMapRenderer(map);
+    }
+    
+    /**
+     * Checks if a rectangle is colliding with any of the offset tiles listed
+     * in WALL_TILES.
+     * 
+     * @param x X position of the rectangle
+     * @param y Y position of the rectangle
+     * @param width Width of the rectangle
+     * @param height Height of the rectangle
+     * @return Whether the rectangle intersect with any tile
+     */
+    public boolean isColliding(int x, int y, int width, int height) {
+    	Rectangle testRect = new Rectangle(x, y, width, height);
+    	int xMap = (int) (x / 16);
+    	int yMap = (int) ((y - 11) / 16);
+    	for (int xm = xMap-1; xm <= xMap+1; xm ++) {
+    		for (int ym = yMap-1; ym <= yMap+1; ym ++) {
+    			Rectangle collisionRect = new Rectangle(xm*16, ym*16+11, 16, 16);
+    			if (collisionMap[xm][ym] && collisionRect.overlaps(testRect)) {
+    				return true;
+    			}
+        	}
+    	}
+    	return false;
     }
 
     /**
