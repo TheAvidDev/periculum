@@ -120,7 +120,7 @@ public class Debugger {
 		/**
 		 * Read the [*] above for why this is offset by a pixel.
 		 */
-		Rectangle playerRect = new Rectangle(player.getX(), player.getY() - 1, 16, 18);
+		Rectangle playerRect = new Rectangle(player.getX() + 1, player.getY(), 14, 16);
 		int xMap = (int) (player.getX() / 16);
 		int yMap = (int) ((player.getY() - 11) / 16);
 		for (int xm = xMap - 1; xm <= xMap + 1; xm++) {
@@ -137,9 +137,9 @@ public class Debugger {
 			}
 		}
 		shapeRenderer.setColor(0, 0, 0, 0.5f);
-		shapeRenderer.rect(playerRect.x, playerRect.y, playerRect.width, playerRect.height);
+		shapeRenderer.rect(playerRect.x + 1, playerRect.y, playerRect.width - 2, playerRect.height);
 		shapeRenderer.setColor(1, 1, 1, 0.5f);
-		shapeRenderer.rect(playerRect.x + 1, playerRect.y + 1, playerRect.width - 2, playerRect.height - 2);
+		shapeRenderer.rect(playerRect.x + 2, playerRect.y + 1, playerRect.width - 4, playerRect.height - 2);
 	}
 
 	/**

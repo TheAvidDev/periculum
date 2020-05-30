@@ -67,22 +67,14 @@ public class Player {
 	private double getNewX() {
 		if (xVel < 0) {
 			for (int i = 0; i >= (int) Math.floor(xVel); i--) {
-				/**
-				 * x+i (without any +#) because -1 for trying to move one less x and +1 to
-				 * center the 14 wide character. +1-1 cancel out.
-				 */
-				if (Periculum.level.isColliding((int) x + i, (int) y, 14, 16)) {
+				if (Periculum.level.isColliding((int) x + i + 1, (int) y + 1, 12, 14)) {
 					return (int) x + i;
 				}
 			}
 			return (int) x + (int) Math.floor(xVel);
 		} else if (xVel > 0) {
 			for (int i = 0; i <= (int) Math.ceil(xVel); i++) {
-				/**
-				 * x+2 because +1 for trying to move one more x and another +1 to center the 14
-				 * wide character.
-				 */
-				if (Periculum.level.isColliding((int) x + i + 2, (int) y, 14, 16)) {
+				if (Periculum.level.isColliding((int) x + i + 3, (int) y + 1, 12, 14)) {
 					return (int) x + i;
 				}
 			}
@@ -100,14 +92,14 @@ public class Player {
 	private double getNewY() {
 		if (yVel < 0) {
 			for (int i = 0; i >= (int) Math.floor(yVel); i--) {
-				if (Periculum.level.isColliding((int) x + 1, (int) y + i - 1, 14, 16)) {
+				if (Periculum.level.isColliding((int) x + 2, (int) y + i, 12, 14)) {
 					return (int) y + i;
 				}
 			}
 			return (int) y + (int) Math.floor(yVel);
 		} else if (yVel > 0) {
 			for (int i = 0; i <= (int) Math.ceil(yVel); i++) {
-				if (Periculum.level.isColliding((int) x + 1, (int) y + i + 1, 14, 16)) {
+				if (Periculum.level.isColliding((int) x + 2, (int) y + i + 2, 12, 14)) {
 					return (int) y + i;
 				}
 			}
