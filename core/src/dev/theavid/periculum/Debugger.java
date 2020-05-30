@@ -148,9 +148,7 @@ public class Debugger {
 		String debug = "X: " + player.getX() + "\n"
 			+ "Y: " + player.getY() + "\n"
 			+ "XVel: " + player.getXVel() + "\n"
-			+ "YVel: " + player.getYVel() + "\n"
-			+ "CYVel: " + Math.ceil(player.getYVel()) + "\n"
-			+ "FYVel: " + Math.floor(player.getYVel());
+			+ "YVel: " + player.getYVel();
 		font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		font.draw(batch, debug, 10, camera.viewportHeight*2-40);
 	}
