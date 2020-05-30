@@ -9,11 +9,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * 
  * @author TheAvidDev
  */
-// 2020-05-20 TheAvidDev - Added player collision
+// 2020-05-30 TheAvidDev - Add player animations
+// 2020-05-29 TheAvidDev - Add player collision
 // 2020-05-29 TheAvidDev - Fix player jittering by passing position as float
-// 2020-05-27 TheAvidDev - Created basic player class with movement
+// 2020-05-27 TheAvidDev - Create basic player class with movement
 public class Player {
-	private final int ANIMATION_SPEED = 4 * 4;
+	private final int ANIMATION_SPEED = 4 * 4; // Multiple of 4
 	private final double VELOCITY_MINIMUM = 0.1;
 	private final double VELOCITY_MAXIMUM = 10;
 	private final double VELOCITY_MULTIPLIER = 0.5;
@@ -41,6 +42,10 @@ public class Player {
 	 * maximum velocity for easier movement checking and better gameplay.
 	 */
 	public void update() {
+		/**
+		 * We do the same rounding as we do in the camera to get rid of any jittering
+		 * between the player and the level.
+		 */
 		x = Math.round(getNewX() * 10f) / 10f;
 		y = Math.round(getNewY() * 10f) / 10f;
 		xVel *= VELOCITY_MULTIPLIER;
@@ -57,6 +62,9 @@ public class Player {
 		}
 		animationFrame = (int) animationCounter / (ANIMATION_SPEED / 4);
 
+		/**
+		 * Movement control and limiting
+		 */
 		float dt = Gdx.graphics.getDeltaTime();
 		if (KeyMap.DOWN.isPressed()) { yVel -= MOVEMENT_VELOCITY * dt; direction = 0; }
 		if (KeyMap.UP.isPressed()) { yVel += MOVEMENT_VELOCITY * dt; direction = 1; }

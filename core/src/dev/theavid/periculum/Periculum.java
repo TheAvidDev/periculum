@@ -12,12 +12,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * @author hirundinidae
  * @author TheAvidDev
  */
-// 2020-05-29 TheAvidDev - decrease occurrences of black lines between tiles
-// 2020-05-29 TheAvidDev - render background and foreground layers separately
-// 2020-05-29 TheAvidDev - allowed window resizing and scale definitions
-// 2020-05-28 hirundinidae - created camera and its movement based on player
-// 2020-05-28 TheAvidDev - cleaned up code, removed libGDX defaults
-// 2020-05-27 hirundinidae - added level creation and rendering
+// 2020-05-29 TheAvidDev - Decrease occurrences of black lines between tiles
+// 2020-05-29 TheAvidDev - Render background and foreground layers separately
+// 2020-05-29 TheAvidDev - Allow window resizing and scale definitions
+// 2020-05-28 hirundinidae - Create camera and its movement based on player
+// 2020-05-28 TheAvidDev - Clean up code, removed libGDX defaults
+// 2020-05-27 hirundinidae - Add level creation and rendering
 public class Periculum extends ApplicationAdapter {
 	private final int TILE_WIDTH = 16;
 	private final int VIEWPORT_WIDTH = 16;

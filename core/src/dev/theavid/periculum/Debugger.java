@@ -16,7 +16,7 @@ import com.badlogic.gdx.math.Vector3;
  * 
  * @author TheAvidDev
  */
-// 2020-05-29 TheAvidDev - added collision and player debugging
+// 2020-05-29 TheAvidDev - Added collision and player debugging
 public class Debugger {
 	private Player player;
 	private Level level;

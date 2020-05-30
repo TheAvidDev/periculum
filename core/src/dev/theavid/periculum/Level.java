@@ -14,9 +14,9 @@ import com.badlogic.gdx.math.Rectangle;
  * @author hirundinidae
  * @author TheAvidDev
  */
-// 2020-05-29 TheAvidDev - add tile collision and rectangle collision
-// 2020-05-29 TheAvidDev - render background and foreground layers separately
-// 2020-05-28 hirundinidae - removed unused interface, started using camera  
+// 2020-05-29 TheAvidDev - Add tile collision and rectangle collision
+// 2020-05-29 TheAvidDev - Render background and foreground layers separately
+// 2020-05-28 hirundinidae - Remove unused interface, started using camera  
 // 2020-05-27 hirundinidae - Tiled integration to libGDX, level drawing 
 public class Level {
 	private final int[] WALL_TILES = new int[] { 33, 34, 35, 38, 49, 50, 51, 54, 65, 66, 67, 68, 69, 70, 71 };
