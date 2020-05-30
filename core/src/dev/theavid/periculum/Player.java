@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 // 2020-05-29 TheAvidDev - Fix player jittering by passing position as float
 // 2020-05-27 TheAvidDev - Created basic player class with movement
 public class Player {
+	private final int ANIMATION_SPEED = 4 * 4;
 	private final double VELOCITY_MINIMUM = 0.1;
 	private final double VELOCITY_MAXIMUM = 10;
 	private final double VELOCITY_MULTIPLIER = 0.5;
@@ -24,6 +25,7 @@ public class Player {
 	private double xVel = 0;
 	private double yVel = 0;
 	private int animationFrame = 0;
+	private double animationCounter = 0;
 	private int direction = 0;
 
 	// TODO: Switch to some entity enum
@@ -43,6 +45,17 @@ public class Player {
 		y = Math.round(getNewY() * 10f) / 10f;
 		xVel *= VELOCITY_MULTIPLIER;
 		yVel *= VELOCITY_MULTIPLIER;
+
+		/**
+		 * Animation
+		 */
+		if (xVel == 0 && yVel == 0) {
+			animationCounter = 0;
+		} else {
+			animationCounter += Math.abs(xVel) / 2 + Math.abs(yVel) / 2;
+			animationCounter %= ANIMATION_SPEED;
+		}
+		animationFrame = (int) animationCounter / (ANIMATION_SPEED / 4);
 
 		float dt = Gdx.graphics.getDeltaTime();
 		if (KeyMap.DOWN.isPressed()) { yVel -= MOVEMENT_VELOCITY * dt; direction = 0; }
