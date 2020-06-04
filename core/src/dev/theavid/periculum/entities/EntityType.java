@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * An enum for non static entities.
- * 
+ *
  * @author TheAvidDev
  * @author hirundinidae
  */
@@ -29,14 +29,31 @@ public enum EntityType {
 		textureRegions = TextureRegion.split(new Texture(BASE_DIR + filename), width, height);
 	}
 
+	/**
+	 * Gets the TextureRegion of the original Texture based on the row and column.
+	 * This is best used for animated textures.
+	 * 
+	 * @param row    which row of the Texture to get
+	 * @param column which column of the Texture to get
+	 * @return the TextureRegion based on the row and column
+	 */
 	public TextureRegion getTextureRegion(int row, int column) {
 		return textureRegions[row][column];
 	}
 
+	/**
+	 * A shortcut for getting the first TextureRegion of the base texture. Best used
+	 * for static textures without animations.
+	 *
+	 * @return the first TextureRegion
+	 */
 	public TextureRegion getTextureRegion() {
 		return textureRegions[0][0];
 	}
 
+	/**
+	 * Disposes all resources associated with this EntityType.
+	 */
 	public void dispose() {
 		textureRegions[0][0].getTexture().dispose();
 	}

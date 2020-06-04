@@ -36,7 +36,8 @@ public enum KeyMap {
 	/**
 	 * Check if any key in a key map is pressed. It also has functionality to check
 	 * if either of the control (ctrl) keys are pressed, presuming the key map
-	 * requires it for activation.
+	 * requires it for activation, or if the key was _just_ pressed or has been held
+	 * down.
 	 *
 	 * @return whether any key in the key map is pressed
 	 */

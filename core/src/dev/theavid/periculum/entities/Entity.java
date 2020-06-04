@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * An entity is any object that can be drawn and has some position in game but
  * is not part of the background tiles. This include objects like the player,
  * notifiers, and other characters.
- * 
+ *
  * @author TheAvidDev
  * @author hirundinidae
  */
@@ -24,16 +24,36 @@ public class Entity {
 		this.y = y;
 	}
 
+	/**
+	 * Updates physics based properties of an Entity.
+	 */
 	public void update() {
 		return;
 	}
 
+	/**
+	 * Disposes all resources associated with this Entity.
+	 */
 	public void dispose() {
 		entityType.dispose();
 	}
 
+	/**
+	 * Returns the TextureRegion which will be drawn by a Spritebatch. This method
+	 * must be implemented for rendering.
+	 *
+	 * @return the TextureRegion to render
+	 */
 	public TextureRegion getTextureRegion() {
 		return entityType.getTextureRegion();
+	}
+
+	/**
+	 * A helper method which passes execution to this Entity's EntityType's
+	 * TextureRegion getter.
+	 */
+	public TextureRegion getTextureRegion(int row, int column) {
+		return entityType.getTextureRegion(row, column);
 	}
 
 	public float getX() {

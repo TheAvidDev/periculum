@@ -38,6 +38,7 @@ public class Player extends Entity {
 	 * gradually by multiplying it by VELOCITY_MULTIPLIER. Also add a minimum and
 	 * maximum velocity for easier movement checking and better gameplay.
 	 */
+	@Override
 	public void update() {
 		/**
 		 * We do the same rounding as we do in the camera to get rid of any jittering
@@ -150,12 +151,9 @@ public class Player extends Entity {
 		return y;
 	}
 
-	/**
-	 * @return the appropriate texture region for the player's direction and
-	 *         animation frame.
-	 */
+	@Override
 	public TextureRegion getTextureRegion() {
-		return entityType.getTextureRegion(direction, animationFrame);
+		return getTextureRegion(direction, animationFrame);
 	}
 
 	public float getXVel() {
