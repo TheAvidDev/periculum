@@ -13,7 +13,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 // 2020-05-29 hirundinidae - Created enum
 public enum EntityType {
 	NOTIFIER("notifier.png", false, 16, 16),
-	PLAYER("player.png", false, 16, 16);
+	PLAYER("player.png", false, 16, 16),
+	DOOR("door.png", false, 16, 11);
 
 	private final String BASE_DIR = "entities/";
 

@@ -16,7 +16,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Entity {
 	protected float x;
 	protected float y;
-	EntityType entityType;
+	private EntityType entityType;
 
 	public Entity(EntityType entityType, float x, float y) {
 		this.entityType = entityType;
@@ -62,5 +62,9 @@ public class Entity {
 
 	public float getY() {
 		return y;
+	}
+
+	public EntityType getEntityType() {
+		return entityType;
 	}
 }

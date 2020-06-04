@@ -29,8 +29,8 @@ public class Player extends Entity {
 	private double animationCounter = 0;
 	private int direction = 0;
 
-	public Player(EntityType entityType, float x, float y) {
-		super(entityType, x, y);
+	public Player(float x, float y) {
+		super(EntityType.PLAYER, x, y);
 	}
 
 	/**

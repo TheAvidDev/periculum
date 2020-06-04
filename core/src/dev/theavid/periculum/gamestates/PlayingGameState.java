@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dev.theavid.periculum.Debugger;
 import dev.theavid.periculum.Level;
 import dev.theavid.periculum.entities.Entity;
-import dev.theavid.periculum.entities.EntityType;
 import dev.theavid.periculum.entities.Player;
 
 /**
@@ -29,15 +28,15 @@ import dev.theavid.periculum.entities.Player;
 // 2020-05-27 hirundinidae - Add level creation and rendering
 public class PlayingGameState extends GameState {
 	public static Debugger debugger;
+	public static ArrayList<Entity> entityList = new ArrayList<Entity>();
 	public static Level level;
 
-	SpriteBatch batch = new SpriteBatch();
-	ArrayList<Entity> entityList = new ArrayList<Entity>();
+	private SpriteBatch batch = new SpriteBatch();
 
 	public PlayingGameState(OrthographicCamera camera) {
 		super(camera);
 		// The Player entity is always the first object in the entityList
-		entityList.add(new Player(EntityType.PLAYER, 1260, 1010));
+		entityList.add(new Player(1260, 1010));
 		level = new Level();
 		debugger = new Debugger(getPlayer(), level, camera);
 	}
@@ -64,8 +63,8 @@ public class PlayingGameState extends GameState {
 
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-		for (Entity entity : entityList) {
-			batch.draw(entity.getTextureRegion(), entity.getX(), entity.getY());
+		for (int i = entityList.size() - 1; i >= 0; i--) {
+			batch.draw(entityList.get(i).getTextureRegion(), entityList.get(i).getX(), entityList.get(i).getY());
 		}
 		batch.end();
 
