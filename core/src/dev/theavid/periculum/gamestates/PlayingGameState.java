@@ -35,7 +35,7 @@ public class PlayingGameState extends GameState {
 	public PlayingGameState(OrthographicCamera camera) {
 		super(camera);
 		batch = new SpriteBatch();
-		player = new Player();
+		player = new Player(EntityType.PLAYER, 1260, 1010);
 		level = new Level();
 		notifier = new Entity(EntityType.NOTIFIER, 1200, 1000);
 

@@ -14,7 +14,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 //                         the EntityType
 // 2020-05-29 hirundinidae - Created Entitiy class
 public class Entity {
-	private float x, y;
+	protected float x;
+	protected float y;
 	EntityType entityType;
 
 	public Entity(EntityType entityType, float x, float y) {

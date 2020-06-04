@@ -12,7 +12,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 // 2020-06-03 TheAvidDev - Added more getter methods and loaded textures
 // 2020-05-29 hirundinidae - Created enum
 public enum EntityType {
-	NOTIFIER("notifier.png", false, 16, 16);
+	NOTIFIER("notifier.png", false, 16, 16),
+	PLAYER("player.png", false, 16, 16);
 
 	private final String BASE_DIR = "entities/";
 
