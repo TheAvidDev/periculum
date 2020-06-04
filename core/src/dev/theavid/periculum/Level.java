@@ -53,8 +53,7 @@ public class Level {
 		 * tile or anywhere further out of bounds. Ideally, it shouldn't be possible to
 		 * get here, but if it does happen, crashing isn't ideal.
 		 */
-		if (!(1 < xMap && xMap < collisionMap.length - 1
-				&& 1 < yMap && yMap < collisionMap[0].length - 1)) {
+		if (!(1 < xMap && xMap < collisionMap.length - 1 && 1 < yMap && yMap < collisionMap[0].length - 1)) {
 			return false;
 		}
 		for (int xm = xMap - 1; xm <= xMap + 1; xm++) {

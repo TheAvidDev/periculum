@@ -41,8 +41,8 @@ public class Periculum extends ApplicationAdapter {
 		currentGameState.render();
 
 		/**
-		 * Update the transition counter and transition to the playing game
-		 * state if the N key is pressed.
+		 * Update the transition counter and transition to the playing game state if the
+		 * N key is pressed.
 		 */
 		if (transitionCounter != 0 || KeyMap.TRANSITION.isPressed(true)) {
 			transitionCounter += Gdx.graphics.getDeltaTime();

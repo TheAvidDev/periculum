@@ -69,17 +69,41 @@ public class Player {
 		 * Movement control and limiting
 		 */
 		float dt = Gdx.graphics.getDeltaTime();
-		if (KeyMap.DOWN.isPressed()) { yVel -= MOVEMENT_VELOCITY * dt; direction = 0; }
-		if (KeyMap.UP.isPressed()) { yVel += MOVEMENT_VELOCITY * dt; direction = 1; }
-		if (KeyMap.RIGHT.isPressed()) { xVel += MOVEMENT_VELOCITY * dt; direction = 2; }
-		if (KeyMap.LEFT.isPressed()) { xVel -= MOVEMENT_VELOCITY * dt; direction = 3; }
+		if (KeyMap.DOWN.isPressed()) {
+			yVel -= MOVEMENT_VELOCITY * dt;
+			direction = 0;
+		}
+		if (KeyMap.UP.isPressed()) {
+			yVel += MOVEMENT_VELOCITY * dt;
+			direction = 1;
+		}
+		if (KeyMap.RIGHT.isPressed()) {
+			xVel += MOVEMENT_VELOCITY * dt;
+			direction = 2;
+		}
+		if (KeyMap.LEFT.isPressed()) {
+			xVel -= MOVEMENT_VELOCITY * dt;
+			direction = 3;
+		}
 
-		if (-VELOCITY_MINIMUM < xVel && xVel < VELOCITY_MINIMUM) { xVel = 0; }
-		if (-VELOCITY_MINIMUM < yVel && yVel < VELOCITY_MINIMUM) { yVel = 0; }
-		if (yVel > VELOCITY_MAXIMUM) { yVel = VELOCITY_MAXIMUM; }
-		if (yVel < -VELOCITY_MAXIMUM) { yVel = -VELOCITY_MAXIMUM; }
-		if (xVel > VELOCITY_MAXIMUM) { xVel = VELOCITY_MAXIMUM; }
-		if (xVel < -VELOCITY_MAXIMUM) { xVel = -VELOCITY_MAXIMUM; }
+		if (-VELOCITY_MINIMUM < xVel && xVel < VELOCITY_MINIMUM) {
+			xVel = 0;
+		}
+		if (-VELOCITY_MINIMUM < yVel && yVel < VELOCITY_MINIMUM) {
+			yVel = 0;
+		}
+		if (yVel > VELOCITY_MAXIMUM) {
+			yVel = VELOCITY_MAXIMUM;
+		}
+		if (yVel < -VELOCITY_MAXIMUM) {
+			yVel = -VELOCITY_MAXIMUM;
+		}
+		if (xVel > VELOCITY_MAXIMUM) {
+			xVel = VELOCITY_MAXIMUM;
+		}
+		if (xVel < -VELOCITY_MAXIMUM) {
+			xVel = -VELOCITY_MAXIMUM;
+		}
 	}
 
 	/**
@@ -140,10 +164,23 @@ public class Player {
 		return textures[direction][animationFrame];
 	}
 
-	public float getX() { return (float) x; }
-	public float getY() { return (float) y; }
-	public float getXVel() { return (float) xVel; }
-	public float getYVel() { return (float) yVel; }
+	public float getX() {
+		return (float) x;
+	}
 
-	public void dispose() { textures[0][0].getTexture().dispose(); }
+	public float getY() {
+		return (float) y;
+	}
+
+	public float getXVel() {
+		return (float) xVel;
+	}
+
+	public float getYVel() {
+		return (float) yVel;
+	}
+
+	public void dispose() {
+		textures[0][0].getTexture().dispose();
+	}
 }

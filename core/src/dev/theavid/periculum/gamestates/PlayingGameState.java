@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import dev.theavid.periculum.Debugger;
 import dev.theavid.periculum.Level;
+import dev.theavid.periculum.entities.Entity;
+import dev.theavid.periculum.entities.EntityType;
 import dev.theavid.periculum.entities.Player;
 
 /**
@@ -28,12 +30,14 @@ public class PlayingGameState extends GameState {
 
 	SpriteBatch batch;
 	Player player;
+	Entity notifier;
 
 	public PlayingGameState(OrthographicCamera camera) {
 		super(camera);
 		batch = new SpriteBatch();
 		player = new Player();
 		level = new Level();
+		notifier = new Entity(EntityType.NOTIFIER, 1200, 1000);
 
 		level.create();
 		debugger = new Debugger(player, level, camera);
@@ -61,6 +65,7 @@ public class PlayingGameState extends GameState {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		batch.draw(player.getTextureRegion(), player.getX(), player.getY());
+		batch.draw(notifier.getTextureRegion(), notifier.getX(), notifier.getY());
 		batch.end();
 
 		level.renderForeground(camera);

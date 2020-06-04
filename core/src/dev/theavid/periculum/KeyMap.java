@@ -13,13 +13,13 @@ import com.badlogic.gdx.Input.Keys;
 // 2020-05-28 TheAvidDev - Add option to require control key to be pressed
 // 2020-05-28 TheAvidDev - Create basic directional keymaps
 public enum KeyMap {
-	UP (Keys.W, Keys.UP),
-	DOWN (Keys.S, Keys.DOWN),
-	LEFT (Keys.A, Keys.LEFT),
-	RIGHT (Keys.D, Keys.RIGHT),
-	CONTROL (Keys.CONTROL_LEFT, Keys.CONTROL_RIGHT),
-	DEBUG (true, Keys.D),
-	TRANSITION (Keys.N);
+	UP(Keys.W, Keys.UP),
+	DOWN(Keys.S, Keys.DOWN),
+	LEFT(Keys.A, Keys.LEFT),
+	RIGHT(Keys.D, Keys.RIGHT),
+	CONTROL(Keys.CONTROL_LEFT, Keys.CONTROL_RIGHT),
+	DEBUG(true, Keys.D),
+	TRANSITION(Keys.SPACE);
 
 	private final int[] keys;
 	private final boolean ctrl;
@@ -45,8 +45,7 @@ public enum KeyMap {
 			return false;
 		}
 		for (int key : keys) {
-			if ((justPressed && Gdx.input.isKeyJustPressed(key))
-					|| (!justPressed && Gdx.input.isKeyPressed(key))) {
+			if ((justPressed && Gdx.input.isKeyJustPressed(key)) || (!justPressed && Gdx.input.isKeyPressed(key))) {
 				return true;
 			}
 		}
