@@ -27,7 +27,7 @@ public class Level {
 	private OrthogonalTiledMapRenderer renderer;
 	private boolean collisionMap[][];
 
-	public void create() {
+	public Level() {
 		map = new TmxMapLoader().load("tiles/map.tmx");
 		makeCollisionMap();
 		renderer = new OrthogonalTiledMapRenderer(map);

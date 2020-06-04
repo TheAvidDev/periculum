@@ -1,5 +1,7 @@
 package dev.theavid.periculum.gamestates;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -17,6 +19,7 @@ import dev.theavid.periculum.entities.Player;
  * @author TheAvidDev
  * @author hirundinidae
  */
+// 2020-06-04 TheAvidDev - Switched to entity list management system
 // 2020-05-30 TheAvidDev - Switched to a game state
 // 2020-05-29 TheAvidDev - Decrease occurrences of black lines between tiles
 // 2020-05-29 TheAvidDev - Render background and foreground layers separately
@@ -28,32 +31,29 @@ public class PlayingGameState extends GameState {
 	public static Debugger debugger;
 	public static Level level;
 
-	SpriteBatch batch;
-	Player player;
-	Entity notifier;
+	SpriteBatch batch = new SpriteBatch();
+	ArrayList<Entity> entityList = new ArrayList<Entity>();
 
 	public PlayingGameState(OrthographicCamera camera) {
 		super(camera);
-		batch = new SpriteBatch();
-		player = new Player(EntityType.PLAYER, 1260, 1010);
+		// The Player entity is always the first object in the entityList
+		entityList.add(new Player(EntityType.PLAYER, 1260, 1010));
 		level = new Level();
-		notifier = new Entity(EntityType.NOTIFIER, 1200, 1000);
-
-		level.create();
-		debugger = new Debugger(player, level, camera);
+		debugger = new Debugger(getPlayer(), level, camera);
 	}
 
 	@Override
 	public void update() {
-		player.update();
+		for (Entity entity : entityList) {
+			entity.update();
+		}
 		/**
 		 * Rounding to tenth of a pixel removes extremely common black lines between
 		 * tiles. However, this doesn't fix them on all resolutions.
 		 */
-		camera.position.set(Math.round(player.getX() * 10f) / 10f, Math.round(player.getY() * 10f) / 10f, 0);
+		camera.position.set(Math.round(getPlayer().getX() * 10f) / 10f, Math.round(getPlayer().getY() * 10f) / 10f, 0);
 		camera.update();
 		debugger.update();
-
 	}
 
 	@Override
@@ -64,8 +64,9 @@ public class PlayingGameState extends GameState {
 
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-		batch.draw(player.getTextureRegion(), player.getX(), player.getY());
-		batch.draw(notifier.getTextureRegion(), notifier.getX(), notifier.getY());
+		for (Entity entity : entityList) {
+			batch.draw(entity.getTextureRegion(), entity.getX(), entity.getY());
+		}
 		batch.end();
 
 		level.renderForeground(camera);
@@ -74,8 +75,20 @@ public class PlayingGameState extends GameState {
 
 	@Override
 	public void dispose() {
+		for (Entity entity : entityList) {
+			entity.dispose();
+		}
 		batch.dispose();
-		player.dispose();
 		level.dispose();
+	}
+
+	/**
+	 * The first entity in the entityList will always be the player, so this method
+	 * is just a shortcut in case of any potential changes.
+	 *
+	 * @return the Player entity
+	 */
+	private Player getPlayer() {
+		return (Player) entityList.get(0);
 	}
 }
