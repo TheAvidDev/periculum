@@ -94,20 +94,20 @@ public class Debugger {
 	}
 
 	/**
-	 * Draw rectangles related to collision detection. The colors are
-	 * described below:
-	 *  - Blue: a tile which has collision
-	 *  - Red: a tile which is being checked for collision
-	 *  - Green: a tile which is being collided with (inaccurate*)
-	 *  - White: the player's actual collision detection box
-	 *  - Black: an extra pixel around each side of the player's collision
-	 *           box to simulate where a collision occurred the previous
-	 *           frame
+	 * Draw rectangles related to collision detection. The colors are described
+	 * below:
+	 * <ul>
+	 * <li>Blue: a tile which has collision</li>
+	 * <li>Red: a tile which is being checked for collision</li>
+	 * <li>Green: a tile which is being collided with (inaccurate*)</li>
+	 * <li>White: the player's actual collision detection box</li>
+	 * <li>Black: an extra pixel around each side of the player's collision box to
+	 * simulate where a collision occurred the previous frame
+	 * </ul>
 	 *
-	 * [*] This is inaccurate because the player will attempt to move into a
-	 *     wall and get pushed out in the player's update method so knowing
-	 *     for sure what a player collided with is impossible unless debugging
-	 *     is drawn there.
+	 * * This is inaccurate because the player will attempt to move into a wall and
+	 * get pushed out in the player's update method so knowing for sure what a
+	 * player collided with is impossible unless debugging is drawn there.
 	 */
 	private void debugLevelCollisions() {
 		shapeRenderer.setColor(0, 0, 1, 0.5f);
@@ -120,7 +120,7 @@ public class Debugger {
 		}
 
 		/**
-		 * Read the [*] above for why this is offset by a pixel.
+		 * Read the * above for why this is offset by a pixel.
 		 */
 		Rectangle playerRect = new Rectangle(player.getX() + 1, player.getY(), 14, 16);
 		int xMap = (int) (player.getX() / 16);
@@ -151,6 +151,7 @@ public class Debugger {
 		String debug = "X: " + player.getX() + "\n" + "Y: " + player.getY() + "\n" + "XVel: " + player.getXVel() + "\n"
 				+ "YVel: " + player.getYVel();
 		font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-		font.draw(batch, debug, 10, camera.viewportHeight * 2 - 40);
+		font.setUseIntegerPositions(true);
+		font.draw(batch, debug, 10, 4 * camera.viewportHeight - debug.split("\n").length);
 	}
 }

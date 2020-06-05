@@ -7,6 +7,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+
+import dev.theavid.periculum.entities.Door;
+import dev.theavid.periculum.gamestates.PlayingGameState;
 
 /**
  * Draws the map of the level.
@@ -14,6 +18,7 @@ import com.badlogic.gdx.math.Rectangle;
  * @author hirundinidae
  * @author TheAvidDev
  */
+// 2020-06-04 TheAvidDev - Add door to level initialization
 // 2020-05-29 TheAvidDev - Add tile collision and rectangle collision
 // 2020-05-29 TheAvidDev - Render background and foreground layers separately
 // 2020-05-28 hirundinidae - Remove unused interface, started using camera  
@@ -22,14 +27,19 @@ public class Level {
 	private final int[] WALL_TILES = new int[] { 33, 34, 35, 38, 49, 50, 51, 54, 65, 66, 67, 68, 69, 70, 71 };
 	private final int[] BACKGROUND_LAYERS = new int[] { 0, 2, 3 };
 	private final int[] FOREGROUND_LAYERS = new int[] { 1 };
+	private final Vector2[] DOOR_POSITIONS = new Vector2[] { new Vector2(56, 65), new Vector2(60, 65),
+			new Vector2(63, 56), new Vector2(64, 56), new Vector2(86, 53), new Vector2(86, 63) };
 
 	private TiledMap map;
 	private OrthogonalTiledMapRenderer renderer;
 	private boolean collisionMap[][];
 
-	public void create() {
+	public Level() {
 		map = new TmxMapLoader().load("tiles/map.tmx");
 		makeCollisionMap();
+		for (Vector2 doorPosition : DOOR_POSITIONS) {
+			PlayingGameState.entityList.add(new Door(doorPosition.x * 16, doorPosition.y * 16));
+		}
 		renderer = new OrthogonalTiledMapRenderer(map);
 	}
 
@@ -53,8 +63,7 @@ public class Level {
 		 * tile or anywhere further out of bounds. Ideally, it shouldn't be possible to
 		 * get here, but if it does happen, crashing isn't ideal.
 		 */
-		if (!(1 < xMap && xMap < collisionMap.length - 1
-				&& 1 < yMap && yMap < collisionMap[0].length - 1)) {
+		if (!(1 < xMap && xMap < collisionMap.length - 1 && 1 < yMap && yMap < collisionMap[0].length - 1)) {
 			return false;
 		}
 		for (int xm = xMap - 1; xm <= xMap + 1; xm++) {

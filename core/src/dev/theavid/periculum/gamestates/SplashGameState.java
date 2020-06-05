@@ -20,7 +20,7 @@ public class SplashGameState extends GameState {
 	public SplashGameState(OrthographicCamera camera) {
 		super(camera);
 		spriteBatch = new SpriteBatch();
-		logo = new Texture("logo/logo&name.png");
+		logo = new Texture("logo/logo_name.png");
 	}
 
 	@Override
@@ -34,17 +34,8 @@ public class SplashGameState extends GameState {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
-		spriteBatch.draw(
-				logo,
-				-logo.getWidth()/16,
-				-logo.getHeight()/16,
-				logo.getWidth()/8,
-				logo.getHeight()/8,
-				0, 0,
-				logo.getWidth(),
-				logo.getHeight(), false, false
-		);
-//		spriteBatch.draw(logo, 0, 0);
+		spriteBatch.draw(logo, -logo.getWidth() / 12, -logo.getHeight() / 12, logo.getWidth() / 6, logo.getHeight() / 6,
+				0, 0, logo.getWidth(), logo.getHeight(), false, false);
 		spriteBatch.end();
 	}
 
