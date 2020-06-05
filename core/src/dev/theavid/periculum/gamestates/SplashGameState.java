@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * 
  * @author TheAvidDev
  */
+// 2020-06-04 hirundinidae - Changed logo and company name png 
 // 2020-05-30 TheAvidDev - Created splash screen game state
 public class SplashGameState extends GameState {
 	private SpriteBatch spriteBatch;
@@ -19,7 +20,7 @@ public class SplashGameState extends GameState {
 	public SplashGameState(OrthographicCamera camera) {
 		super(camera);
 		spriteBatch = new SpriteBatch();
-		logo = new Texture("logo/logo.png");
+		logo = new Texture("logo/logo&name.png");
 	}
 
 	@Override
@@ -43,6 +44,7 @@ public class SplashGameState extends GameState {
 				logo.getWidth(),
 				logo.getHeight(), false, false
 		);
+//		spriteBatch.draw(logo, 0, 0);
 		spriteBatch.end();
 	}
 
