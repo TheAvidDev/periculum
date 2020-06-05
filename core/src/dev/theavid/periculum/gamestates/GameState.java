@@ -6,13 +6,15 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
  * A generic game state which contains an orthographic camera.
  * 
  * @author TheAvidDev
+ * @author hirundinidae
  */
+// 2020-06-04 hirundinidae - Added methods shouldTransistion() and getNextGameState()
 // 2020-05-30 TheAvidDev - Created abstract game state
 public abstract class GameState {
 	protected OrthographicCamera camera;
 
 	public GameState(OrthographicCamera camera) {
-		this.camera = camera;
+		this.camera = camera; 
 	}
 
 	/**
@@ -29,4 +31,16 @@ public abstract class GameState {
 	 * Disposes all resources associated with this GameState.
 	 */
 	public abstract void dispose();
+	 
+	/**
+	 * 
+	 * @return boolean value indicating if the a transistion should occur.
+	 */
+	public abstract boolean shouldTransistion();
+	
+	/**
+	 * 
+	 * @return next GameState
+	 */
+	public abstract GameState getNextGameState();
 }
