@@ -6,11 +6,15 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import dev.theavid.periculum.KeyMap;
+
 /**
  * A simple splash screen with an image displayed on the center of the screen.
  * 
  * @author TheAvidDev
+ * @author hirundinidae
  */
+// 2020-06-04 hirundinidae - Added new GameState methods 
 // 2020-06-04 hirundinidae - Changed logo and company name png 
 // 2020-05-30 TheAvidDev - Created splash screen game state
 public class SplashGameState extends GameState {
@@ -44,4 +48,18 @@ public class SplashGameState extends GameState {
 		spriteBatch.dispose();
 		logo.dispose();
 	}
+
+    @Override
+    public boolean shouldTransistion() {
+        // TODO Auto-generated method stub
+        return KeyMap.TRANSITION.isPressed(true);
+    }
+
+    @Override
+    public GameState getNextGameState() {
+        // TODO Auto-generated method stub
+        return new PlayingGameState(camera);
+    }
+
+   
 }

@@ -18,6 +18,7 @@ import dev.theavid.periculum.entities.Player;
  * @author TheAvidDev
  * @author hirundinidae
  */
+// 2020-06-04 hirundinidae - Added new GameState methods
 // 2020-06-04 TheAvidDev - Switched to entity list management system
 // 2020-05-30 TheAvidDev - Switched to a game state
 // 2020-05-29 TheAvidDev - Decrease occurrences of black lines between tiles
@@ -80,7 +81,7 @@ public class PlayingGameState extends GameState {
 		batch.dispose();
 		level.dispose();
 	}
-
+ 
 	/**
 	 * The first entity in the entityList will always be the player, so this method
 	 * is just a shortcut in case of any potential changes.
@@ -90,4 +91,16 @@ public class PlayingGameState extends GameState {
 	private Player getPlayer() {
 		return (Player) entityList.get(0);
 	}
+
+    @Override
+    public boolean shouldTransistion() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public GameState getNextGameState() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
