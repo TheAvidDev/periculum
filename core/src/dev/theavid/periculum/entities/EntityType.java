@@ -23,7 +23,7 @@ public enum EntityType {
 	private final int height;
 	private TextureRegion[][] textureRegions;
 
-	EntityType(String filename, boolean collidable, int width, int height) {
+	private EntityType(String filename, boolean collidable, int width, int height) {
 		this.collidable = collidable;
 		this.width = width;
 		this.height = height;
