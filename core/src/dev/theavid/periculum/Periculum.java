@@ -45,7 +45,6 @@ public class Periculum extends ApplicationAdapter {
 		 * Update the transition counter and transition to the playing game state if the
 		 * SPACE key is pressed.
 		 */
-		System.out.println(currentGameState);
 		if (transitionCounter != 0 || currentGameState.shouldTransistion()) {
 			transitionCounter += Gdx.graphics.getDeltaTime();
 			Gdx.gl.glEnable(GL20.GL_BLEND);
@@ -62,7 +61,6 @@ public class Periculum extends ApplicationAdapter {
 		if (transitionCounter >= 1) {
 			transitionCounter = -1;
 			currentGameState = currentGameState.getNextGameState();
-			System.out.println("Transitioned to " + currentGameState);
 		}
 	}
 
