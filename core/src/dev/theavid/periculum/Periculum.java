@@ -17,7 +17,8 @@ import dev.theavid.periculum.gamestates.SplashGameState;
  * @author hirundinidae
  * @author TheAvidDev
  */
-// 2020-05-30 Switched to a game state based approach
+// 2020-06-04 hirundinidae - Updated comment for game state transitions  
+// 2020-05-30 TheAvidDev - Switched to a game state based approach
 public class Periculum extends ApplicationAdapter {
 	private final int TILE_WIDTH = 16;
 	private final int VIEWPORT_WIDTH = 16;
@@ -42,7 +43,7 @@ public class Periculum extends ApplicationAdapter {
 
 		/**
 		 * Update the transition counter and transition to the playing game state if the
-		 * N key is pressed.
+		 * SPACE key is pressed.
 		 */
 		if (transitionCounter != 0 || KeyMap.TRANSITION.isPressed(true)) {
 			transitionCounter += Gdx.graphics.getDeltaTime();

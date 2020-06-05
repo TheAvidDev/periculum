@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * 
  * @author TheAvidDev
  */
+// 2020-06-04 hirundinidae - Changed logo and company name png 
 // 2020-05-30 TheAvidDev - Created splash screen game state
 public class SplashGameState extends GameState {
 	private SpriteBatch spriteBatch;
