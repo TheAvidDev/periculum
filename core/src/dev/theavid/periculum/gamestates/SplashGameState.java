@@ -49,17 +49,15 @@ public class SplashGameState extends GameState {
 		logo.dispose();
 	}
 
-    @Override
-    public boolean shouldTransistion() {
-        // TODO Auto-generated method stub
-        return KeyMap.TRANSITION.isPressed(true);
-    }
+	@Override
+	public boolean shouldTransistion() {
+		return KeyMap.TRANSITION.isPressed(true);
+	}
 
-    @Override
-    public GameState getNextGameState() {
-        // TODO Auto-generated method stub
-        return new PlayingGameState(camera);
-    }
+	@Override
+	public GameState getNextGameState() {
+		// TODO Auto-generated method stub
+		return new PlayingGameState(camera);
+	}
 
-   
 }

@@ -127,7 +127,8 @@ public class Debugger {
 		int yMap = Math.max(0, (int) ((player.getY() - 11) / 16));
 		for (int xm = xMap - 1; xm <= xMap + 1; xm++) {
 			for (int ym = yMap - 1; ym <= yMap + 1; ym++) {
-				if (xm < 0 || xm >= level.getCollisionMap().length || ym < 0 || ym >= level.getCollisionMap()[0].length) {
+				if (xm < 0 || xm >= level.getCollisionMap().length || ym < 0
+						|| ym >= level.getCollisionMap()[0].length) {
 					continue;
 				}
 				Rectangle collisionRect = new Rectangle(xm * 16, ym * 16 + 11, 16, 16);

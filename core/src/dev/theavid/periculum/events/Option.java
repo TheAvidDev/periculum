@@ -14,8 +14,8 @@ public class Option {
 	/**
 	 * Creates a new option for an Event.
 	 * 
-	 * @param name the name of this option
-	 * @param infectionRateEffect the effect this option has on infection risk
+	 * @param name                  the name of this option
+	 * @param infectionRateEffect   the effect this option has on infection risk
 	 * @param mentalStabilityEffect the effect this option has on mental stability
 	 */
 	public Option(String name, float infectionRateEffect, float mentalStabilityEffect) {

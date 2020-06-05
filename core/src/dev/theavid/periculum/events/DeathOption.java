@@ -17,8 +17,9 @@ public class DeathOption extends Option {
 	/**
 	 * Creates a regular Option with two extra parameters needed for a death screen.
 	 * 
-	 * @param deathMessage the message displayed to the user on death
-	 * @param deathIconFilename the name of the file housing the icon for the death screen
+	 * @param deathMessage      the message displayed to the user on death
+	 * @param deathIconFilename the name of the file housing the icon for the death
+	 *                          screen
 	 */
 	public DeathOption(String name, float infectionRateEffect, float mentalStabilityEffect, String deathMessage,
 			String deathIconFilename) {

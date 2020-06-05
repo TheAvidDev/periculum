@@ -14,7 +14,7 @@ public abstract class GameState {
 	protected OrthographicCamera camera;
 
 	public GameState(OrthographicCamera camera) {
-		this.camera = camera; 
+		this.camera = camera;
 	}
 
 	/**
@@ -31,13 +31,13 @@ public abstract class GameState {
 	 * Disposes all resources associated with this GameState.
 	 */
 	public abstract void dispose();
-	 
+
 	/**
 	 * 
 	 * @return boolean value indicating if the a transistion should occur.
 	 */
 	public abstract boolean shouldTransistion();
-	
+
 	/**
 	 * 
 	 * @return next GameState
