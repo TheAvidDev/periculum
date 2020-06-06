@@ -64,11 +64,11 @@ public enum EntityType {
 		return collidable;
 	}
 
-	public double getWidth() {
+	public int getWidth() {
 		return width;
 	}
 
-	public double getHeight() {
+	public int getHeight() {
 		return height;
 	}
 }
