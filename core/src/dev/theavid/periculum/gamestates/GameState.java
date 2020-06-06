@@ -33,14 +33,20 @@ public abstract class GameState {
 	public abstract void dispose();
 
 	/**
+	 * Whether this GameState should cease to exist and transition to another
+	 * GameState.
 	 * 
-	 * @return boolean value indicating if the a transistion should occur.
+	 * @return boolean value indicating if the a transistion should occur
 	 */
 	public abstract boolean shouldTransistion();
 
 	/**
+	 * Get the next game state to transition to. This function will be called
+	 * exactly once and only if shouldTransition returned true. Therefore, it should
+	 * return a new instance of a GameState, preventing a situation where more than
+	 * one GameState is currently initialized.
 	 * 
-	 * @return next GameState
+	 * @return next GameState to transition to
 	 */
 	public abstract GameState getNextGameState();
 }
