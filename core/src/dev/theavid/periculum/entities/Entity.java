@@ -32,10 +32,19 @@ public class Entity {
 	}
 
 	/**
-	 * Disposes all resources associated with this Entity.
+	 * @return whether this object should be removed or not.
+	 */
+	public boolean shouldKill() {
+		return false;
+	}
+
+	/**
+	 * Disposes all resources associated with this Entity. This method SHOULD NOT
+	 * call EntityType.dispose() as it will prevent future entities to correctly
+	 * render their texture.
 	 */
 	public void dispose() {
-		entityType.dispose();
+		return;
 	}
 
 	/**
