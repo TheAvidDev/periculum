@@ -15,7 +15,7 @@ public enum EntityType {
 	NOTIFIER("notifier.png", false, 16, 16),
 	PLAYER("player.png", false, 16, 16),
 	DOOR("door.png", false, 16, 11),
-	POPUP("popup.png", false, 16, 16);
+	POPUP("popup.png", false, 64, 48);
 
 	private final String BASE_DIR = "entities/";
 
