@@ -2,8 +2,12 @@ package dev.theavid.periculum;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
@@ -23,6 +27,8 @@ public class Periculum extends ApplicationAdapter {
 	private final int TILE_WIDTH = 16;
 	private final int VIEWPORT_WIDTH = 16;
 
+	public static BitmapFont headerFont;
+
 	private OrthographicCamera camera;
 	private ShapeRenderer shapeRenderer;
 	private GameState currentGameState;
@@ -34,6 +40,15 @@ public class Periculum extends ApplicationAdapter {
 		camera.setToOrtho(false, 320, 320 * (4 / 3));
 		shapeRenderer = new ShapeRenderer();
 		currentGameState = new SplashGameState(camera);
+
+		/**
+		 * Create main font of default 16 point size.
+		 */
+		FileHandle fontFile = Gdx.files.internal("unifont.ttf");
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
+		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+		headerFont = generator.generateFont(parameter);
+		generator.dispose();
 	}
 
 	@Override
@@ -67,6 +82,7 @@ public class Periculum extends ApplicationAdapter {
 	@Override
 	public void dispose() {
 		currentGameState.dispose();
+		headerFont.dispose();
 	}
 
 	/**
