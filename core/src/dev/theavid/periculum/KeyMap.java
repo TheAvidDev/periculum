@@ -10,6 +10,7 @@ import com.badlogic.gdx.Input.Keys;
  * 
  * @author TheAvidDev
  */
+// 2020-06-05 hirundinidae - Add Quit option 
 // 2020-05-28 TheAvidDev - Add option to require control key to be pressed
 // 2020-05-28 TheAvidDev - Create basic directional keymaps
 public enum KeyMap {
@@ -19,7 +20,8 @@ public enum KeyMap {
 	RIGHT(Keys.D, Keys.RIGHT),
 	CONTROL(Keys.CONTROL_LEFT, Keys.CONTROL_RIGHT),
 	DEBUG(true, Keys.D),
-	TRANSITION(Keys.SPACE);
+	TRANSITION(Keys.SPACE),
+	QUIT(Keys.Q);
 
 	private final int[] keys;
 	private final boolean ctrl;
