@@ -81,7 +81,7 @@ public class PlayingGameState extends GameState {
 		batch.dispose();
 		level.dispose();
 	}
- 
+
 	/**
 	 * The first entity in the entityList will always be the player, so this method
 	 * is just a shortcut in case of any potential changes.
@@ -92,15 +92,13 @@ public class PlayingGameState extends GameState {
 		return (Player) entityList.get(0);
 	}
 
-    @Override
-    public boolean shouldTransistion() {
-        // TODO Auto-generated method stub
-        return false;
-    }
+	@Override
+	public boolean shouldTransition() {
+		return false;
+	}
 
-    @Override
-    public GameState getNextGameState() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public GameState getNextGameState() {
+		return null;
+	}
 }
