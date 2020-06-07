@@ -23,11 +23,15 @@ import dev.theavid.periculum.events.Event;
 public class ChoosingGameState extends GameState {
 	private final float UI_SCALE = 8;
 	private final float CAMERA_ZOOM = 2f;
+	private final float UI_PROMPT_OFFSET_Y = 20;
+	private final float UI_PROMPT_OFFSET_X = 40;
+	private final float UI_OPTION_OFFSET_X = 40;
+	private final float UI_OPTION_TEXT_OFFSET_X = 40;
 
 	private GameState originalState;
 	private Event event;
 	private boolean lastEvent;
-	private Entity[] popups;
+	private Entity[] entities;
 	private Outcome outcome;
 
 	private SpriteBatch batch = new SpriteBatch();
@@ -49,10 +53,10 @@ public class ChoosingGameState extends GameState {
 		/**
 		 * Create the background popup and the popups for options.
 		 */
-		popups = new Entity[event.getOptions().length + 1];
-		popups[0] = new Entity(EntityType.POPUP, 0, 0);
+		entities = new Entity[event.getOptions().length + 1];
+		entities[0] = new Entity(EntityType.POPUP, 0, 0);
 		for (int i = 0; i < event.getOptions().length; i++) {
-			popups[i + 1] = new Entity(EntityType.POPUP, 10, 10 * i);
+			entities[i + 1] = new Entity(EntityType.POPUP, 10, 10 * i);
 		}
 	}
 
@@ -71,31 +75,65 @@ public class ChoosingGameState extends GameState {
 
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
+
 		/**
-		 * This is bad. Really bad. Horrifically horrible and bad. Terrible. But it
-		 * works **for now**. This has to be fixed. TODO: Fix this mess of """code"""
+		 * Draw the background popup.
 		 */
-		batch.draw(popups[0].getTextureRegion(), -popups[0].getEntityType().getWidth() * UI_SCALE / 2,
-				-popups[0].getEntityType().getHeight() * UI_SCALE / 2, popups[0].getEntityType().getWidth() * UI_SCALE,
-				popups[0].getEntityType().getHeight() * UI_SCALE);
+		EntityType entityType = entities[0].getEntityType();
+		float x = -entityType.getWidth() * UI_SCALE / 2;
+		float y = -entityType.getHeight() * UI_SCALE / 2;
+		float width = -x * 2;
+		float height = -y * 2;
+		batch.draw(entities[0].getTextureRegion(), x, y, width, height);
 		Periculum.headerFont.setColor(Color.WHITE);
 
-		Periculum.headerFont.draw(batch, event.getPrompt(), 40 - popups[0].getEntityType().getWidth() * UI_SCALE / 2,
-				-20 + popups[0].getEntityType().getHeight() * UI_SCALE / 2,
-				popups[0].getEntityType().getWidth() * UI_SCALE - 80, Align.center, true);
-		for (int i = 1; i < popups.length; i++) {
-			batch.draw(popups[i].getTextureRegion(), -popups[i].getEntityType().getWidth() * UI_SCALE / 2 + 40,
-					popups[i].getEntityType().getHeight() * UI_SCALE / 2
-							- (popups[i].getEntityType().getHeight() * UI_SCALE / 4) * i,
-					popups[i].getEntityType().getWidth() * UI_SCALE - 80,
-					-popups[i].getEntityType().getHeight() * UI_SCALE / 4 + 20);
-			Periculum.headerFont.draw(batch, event.getOptions()[i - 1].getName(),
-					-popups[i].getEntityType().getWidth() * UI_SCALE / 2 + 40,
-					popups[i].getEntityType().getHeight() * UI_SCALE / 2
-							- (popups[i].getEntityType().getHeight() * UI_SCALE / 4) * i
-							+ (-popups[i].getEntityType().getHeight() * UI_SCALE / 4 + 20) / 2
-							+ Periculum.headerFont.getLineHeight() / 2,
-					popups[i].getEntityType().getWidth() * UI_SCALE - 80, Align.center, true);
+		/**
+		 * Draw the prompt with the following format:
+		 *  _________________
+		 * |                 | <- I_PROMPT_OFFSET_Y
+		 * |----  prompt ----|
+		 * |                 |
+		 * |                 |
+		 * |_________________|
+		 * |----|       |----|
+		 *   /\           /\
+		 *  UI_PROMPT_OFFSET_X
+		 */
+		x = UI_PROMPT_OFFSET_X - entityType.getWidth() * UI_SCALE / 2;
+		y = -UI_PROMPT_OFFSET_Y + entityType.getHeight() * UI_SCALE / 2;
+		width = entityType.getWidth() * UI_SCALE - 2 * UI_PROMPT_OFFSET_X;
+		Periculum.headerFont.draw(batch, event.getPrompt(), x, y, width, Align.center, true);
+
+		/**
+		 * Format the option entity and text with the following format:
+		 *
+		 *  ________________________
+		 * |                        |
+		 * |         prompt         |
+		 * |   __________________   |
+		 * |--|-----option 1-----|--| <- UI_OPTION_OFFSET_X
+		 * |   __________________   |
+		 * |--|-----option 2-----|--| <- UI_OPTION_OFFSET_X
+		 * |                        |
+		 * |                        |
+		 * |________________________|
+		 * |--|-----|      |-----|--| <- UI_OPTION_OFFSET_X
+		 *       /\          /\
+		 *   UI_OPTION_TEXT_OFFSET_X
+		 */
+		for (int i = 1; i < entities.length; i++) {
+			entityType = entities[i].getEntityType();
+			x = -entityType.getWidth() / 2 * UI_SCALE + UI_OPTION_OFFSET_X;
+			y = entityType.getHeight() / 2 * UI_SCALE - (entityType.getHeight() * UI_SCALE / 4) * (i + 1);
+			width = entityType.getWidth() * UI_SCALE - 2 * UI_OPTION_OFFSET_X;
+			height = entityType.getHeight() * UI_SCALE / 4 - 20;
+			batch.draw(entities[i].getTextureRegion(), x, y, width, height);
+
+			x = -entityType.getWidth() / 2 * UI_SCALE + UI_OPTION_TEXT_OFFSET_X;
+			y = entityType.getHeight() / 2 * UI_SCALE - (entityType.getHeight() * UI_SCALE / 4) * i - height / 2
+					- Periculum.headerFont.getLineHeight() / 2;
+			width = entityType.getWidth() * UI_SCALE - 2 * UI_OPTION_TEXT_OFFSET_X;
+			Periculum.headerFont.draw(batch, event.getOptions()[i - 1].getName(), x, y, width, Align.center, true);
 		}
 		batch.end();
 	}
@@ -103,7 +141,7 @@ public class ChoosingGameState extends GameState {
 	@Override
 	public void dispose() {
 		batch.dispose();
-		popups[0].dispose();
+		entities[0].dispose();
 	}
 
 	@Override
@@ -123,7 +161,7 @@ public class ChoosingGameState extends GameState {
 			// TODO: return new WinGameState();
 		}
 		if (outcome == Outcome.LOSS) {
-			// TODO: return new LossGameState();
+			// TODO: return new DeathGameState(...);
 		}
 		return originalState;
 	}

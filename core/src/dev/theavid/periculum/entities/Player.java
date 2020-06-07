@@ -22,12 +22,15 @@ public class Player extends Entity {
 	private final float VELOCITY_MAXIMUM = 10f;
 	private final float VELOCITY_MULTIPLIER = 0.5f;
 	private final float MOVEMENT_VELOCITY = 50f;
+	private final float HEALTH_DENOMINATOR = 10;
 
 	private float xVel = 0;
 	private float yVel = 0;
 	private int animationFrame = 0;
 	private double animationCounter = 0;
 	private int direction = 0;
+	private float infectionRisk = 0;
+	private float mentalStability = 1;
 
 	public Player(float x, float y) {
 		super(EntityType.PLAYER, x, y);
@@ -99,6 +102,20 @@ public class Player extends Entity {
 		if (getXVel() < -VELOCITY_MAXIMUM) {
 			setXVel(-VELOCITY_MAXIMUM);
 		}
+	}
+
+	/**
+	 * Alter the player's infection risk.
+	 */
+	public void changeInfectionRisk(float deltaInfectionRisk) {
+		infectionRisk = Math.min(0, infectionRisk + deltaInfectionRisk / HEALTH_DENOMINATOR);
+	}
+
+	/**
+	 * Alter the player's mental stability.
+	 */
+	public void changeMentalStability(float deltaMentalStability) {
+		mentalStability = Math.max(1, mentalStability + deltaMentalStability / HEALTH_DENOMINATOR);
 	}
 
 	/**
