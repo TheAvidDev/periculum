@@ -111,13 +111,13 @@ public class ChoosingGameState extends GameState {
 		 * |                        |
 		 * |         prompt         |
 		 * |   __________________   |
-		 * |--|-----option 1-----|--| <- UI_OPTION_OFFSET_X
+		 * |==|-----option 1-----|==| <- UI_OPTION_OFFSET_X
 		 * |   __________________   |
-		 * |--|-----option 2-----|--| <- UI_OPTION_OFFSET_X
+		 * |==|-----option 2-----|==| <- UI_OPTION_OFFSET_X
 		 * |                        |
 		 * |                        |
 		 * |________________________|
-		 * |--|-----|      |-----|--| <- UI_OPTION_OFFSET_X
+		 * |==|-----|      |-----|==| <- UI_OPTION_OFFSET_X
 		 *       /\          /\
 		 *   UI_OPTION_TEXT_OFFSET_X
 		 */
