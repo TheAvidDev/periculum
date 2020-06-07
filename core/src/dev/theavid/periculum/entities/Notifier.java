@@ -3,6 +3,12 @@ package dev.theavid.periculum.entities;
 import dev.theavid.periculum.KeyMap;
 import dev.theavid.periculum.gamestates.PlayingGameState;
 
+/**
+ * A simple "notifier" entity that gets killed when the user interacts with it.
+ *
+ * @author TheAvidDev
+ */
+// 2020-06-06 TheAvidDev - Created class and shouldKill logic
 public class Notifier extends Entity {
 	private final double MIN_DISTANCE = Math.pow(20, 2);
 
