@@ -107,7 +107,7 @@ public class ChoosingGameState extends GameState {
 	}
 
 	@Override
-	public boolean shouldTransistion() {
+	public boolean shouldTransition() {
 		return outcome != null;
 	}
 

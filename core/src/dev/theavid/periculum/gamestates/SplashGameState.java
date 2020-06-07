@@ -15,7 +15,7 @@ import dev.theavid.periculum.KeyMap;
  * @author hirundinidae
  */
 // 2020-06-04 hirundinidae - Added new GameState methods 
-// 2020-06-04 hirundinidae - Changed logo and company name png 
+// 2020-06-04 hirundinidae - Changed logo and company name png
 // 2020-05-30 TheAvidDev - Created splash screen game state
 public class SplashGameState extends GameState {
 	private SpriteBatch spriteBatch;
@@ -50,8 +50,8 @@ public class SplashGameState extends GameState {
 	}
 
 	@Override
-	public boolean shouldTransistion() {
-		return KeyMap.TRANSITION.isPressed();
+	public boolean shouldTransition() {
+		return KeyMap.TRANSITION.isPressed(true);
 	}
 
 	@Override

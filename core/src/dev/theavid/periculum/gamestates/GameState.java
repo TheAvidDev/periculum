@@ -36,9 +36,9 @@ public abstract class GameState {
 	 * Whether this GameState should cease to exist and transition to another
 	 * GameState.
 	 * 
-	 * @return boolean value indicating if the a transistion should occur
+	 * @return boolean value indicating if the a transition should occur.
 	 */
-	public abstract boolean shouldTransistion();
+	public abstract boolean shouldTransition();
 
 	/**
 	 * Get the next game state to transition to. This function will be called
