@@ -51,12 +51,11 @@ public class SplashGameState extends GameState {
 
 	@Override
 	public boolean shouldTransistion() {
-		return KeyMap.TRANSITION.isPressed(true);
+		return KeyMap.TRANSITION.isPressed();
 	}
 
 	@Override
 	public GameState getNextGameState() {
-		// TODO Auto-generated method stub
 		return new PlayingGameState(camera);
 	}
 
