@@ -14,10 +14,7 @@ import dev.theavid.periculum.entities.Entity;
 import dev.theavid.periculum.entities.EntityType;
 import dev.theavid.periculum.entities.Notifier;
 import dev.theavid.periculum.entities.Player;
-import dev.theavid.periculum.entities.Popup;
-import dev.theavid.periculum.events.DeathOption;
 import dev.theavid.periculum.events.Event;
-import dev.theavid.periculum.events.Option;
 
 /**
  * The main state in which the player plays with a level and moving camera.
@@ -41,7 +38,7 @@ public class PlayingGameState extends GameState {
 
 	private SpriteBatch batch = new SpriteBatch();
 	private ArrayList<FullEvent> eventList = new ArrayList<FullEvent>();
-	private DeathOption deathOption;
+	private boolean makingChoice = false;
 
 	public PlayingGameState(OrthographicCamera camera) {
 		super(camera);
@@ -59,33 +56,22 @@ public class PlayingGameState extends GameState {
 
 	@Override
 	public void update() {
+		if (makingChoice) {
+			return;
+		}
 		for (int i = entityList.size() - 1; i >= 0; i--) {
 			entityList.get(i).update();
 			if (entityList.get(i).shouldKill()) {
-				Entity entity = entityList.get(i);
+				/**
+				 * If we find that a Notifier wants to be removed, we know that the player is
+				 * attempting to make a choice. We also don't remove it so that we can hide it's
+				 * removal during the scene switch.
+				 */
+				if (entityList.get(i) instanceof Notifier) {
+					makingChoice = true;
+					continue;
+				}
 				entityList.remove(i);
-
-				if (entity instanceof Notifier) {
-					entityList.add(new Popup(eventList.get(0).getEvent()));
-					eventList.remove(0);
-					if (eventList.size() > 0) {
-						entityList.add(new Notifier(eventList.get(0).getX(), eventList.get(0).getY()));
-					}
-					/**
-					 * If there are no more events, we just won't do anything and wait for the game
-					 * state to transition to a win or loss, depending on whether a DeathOption has
-					 * been assigned.
-					 */
-				}
-				if (entity instanceof Popup) {
-					Option selectedOption = ((Popup) entity).getSelectedOption();
-					// TODO: Change the player's healths
-					if (selectedOption instanceof DeathOption) {
-						deathOption = (DeathOption) selectedOption;
-					}
-				}
-
-				entity = null;
 			}
 		}
 
@@ -139,16 +125,35 @@ public class PlayingGameState extends GameState {
 
 	@Override
 	public boolean shouldTransistion() {
-		return deathOption != null || eventList.size() == 0;
+		return makingChoice;
 	}
 
 	@Override
 	public GameState getNextGameState() {
-		if (deathOption != null) {
-			// TODO: return new GameOverState(deathOption...);
+		makingChoice = false;
+		Event currentEvent = eventList.get(0).getEvent();
+		eventList.remove(0);
+
+		/**
+		 * This is quite aggresive and removes all Notifiers but there should really
+		 * only be one, so cleaning up extra ones is fine.
+		 */
+		for (int i = entityList.size() - 1; i >= 0; i--) {
+			if (entityList.get(i) instanceof Notifier) {
+				entityList.remove(i);
+			}
 		}
-		// TODO: return new WinState?
-		return null;
+
+		/**
+		 * If this is not the last event, we will create a Notifier for the next event,
+		 * otherwise doing nothing other than telling the ChoosingGameState that no
+		 * future events exist so the next GameState should either be a win or loss.
+		 */
+		boolean isLastEvent = eventList.size() == 0;
+		if (!isLastEvent) {
+			entityList.add(new Notifier(eventList.get(0).getX(), eventList.get(0).getY()));
+		}
+		return new ChoosingGameState(this, camera, currentEvent, (Player) getPlayer(), isLastEvent);
 	}
 
 	class FullEvent {
