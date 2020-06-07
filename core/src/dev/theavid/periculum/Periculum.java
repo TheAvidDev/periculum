@@ -7,9 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
-import dev.theavid.periculum.gamestates.DeathGameState; // debug
 import dev.theavid.periculum.gamestates.GameState;
-import dev.theavid.periculum.gamestates.PlayingGameState;
 import dev.theavid.periculum.gamestates.SplashGameState;
 
 /**
@@ -49,7 +47,6 @@ public class Periculum extends ApplicationAdapter {
 		 */
 		if (transitionCounter != 0 || currentGameState.shouldTransition()) {
 			transitionCounter += Gdx.graphics.getDeltaTime();
-
 			Gdx.gl.glEnable(GL20.GL_BLEND);
 			Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 			shapeRenderer.begin(ShapeType.Filled);
@@ -61,7 +58,6 @@ public class Periculum extends ApplicationAdapter {
 				transitionCounter = 0;
 			}
 		}
-
 		if (transitionCounter >= 1) {
 			transitionCounter = -1;
 			currentGameState = currentGameState.getNextGameState();

@@ -1,20 +1,13 @@
 package dev.theavid.periculum.gamestates;
 
-import java.awt.Font;
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import dev.theavid.periculum.Debugger;
 import dev.theavid.periculum.KeyMap;
-import dev.theavid.periculum.Level;
-import dev.theavid.periculum.entities.Entity;
 
 /**
  * The state where the player is notified of their failure.

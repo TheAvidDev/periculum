@@ -26,11 +26,11 @@ public enum KeyMap {
 	private final int[] keys;
 	private final boolean ctrl;
 
-	KeyMap(int... keys) {
+	private KeyMap(int... keys) {
 		this(false, keys);
 	}
 
-	KeyMap(boolean ctrl, int... keys) {
+	private KeyMap(boolean ctrl, int... keys) {
 		this.ctrl = ctrl;
 		this.keys = keys;
 	}

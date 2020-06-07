@@ -123,10 +123,14 @@ public class Debugger {
 		 * Read the * above for why this is offset by a pixel.
 		 */
 		Rectangle playerRect = new Rectangle(player.getX() + 1, player.getY(), 14, 16);
-		int xMap = (int) (player.getX() / 16);
-		int yMap = (int) ((player.getY() - 11) / 16);
+		int xMap = Math.max(0, (int) (player.getX() / 16));
+		int yMap = Math.max(0, (int) ((player.getY() - 11) / 16));
 		for (int xm = xMap - 1; xm <= xMap + 1; xm++) {
 			for (int ym = yMap - 1; ym <= yMap + 1; ym++) {
+				if (xm < 0 || xm >= level.getCollisionMap().length || ym < 0
+						|| ym >= level.getCollisionMap()[0].length) {
+					continue;
+				}
 				Rectangle collisionRect = new Rectangle(xm * 16, ym * 16 + 11, 16, 16);
 				if (level.getCollisionMap()[xm][ym] && collisionRect.overlaps(playerRect)) {
 					shapeRenderer.setColor(0, 1, 0, 0.5f);
