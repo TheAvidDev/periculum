@@ -69,7 +69,7 @@ public class Periculum extends ApplicationAdapter {
 			shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			shapeRenderer.end();
 			Gdx.gl.glDisable(GL20.GL_BLEND);
-			if (transitionCounter < 0 && transitionCounter + Gdx.graphics.getDeltaTime() > 0) {
+			if (transitionCounter - Gdx.graphics.getDeltaTime() < 0 && transitionCounter > 0) {
 				transitionCounter = 0;
 			}
 		}
