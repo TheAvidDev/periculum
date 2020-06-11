@@ -11,6 +11,7 @@ import dev.theavid.periculum.gamestates.PlayingGameState;
  * 
  * @author TheAvidDev
  */
+// 2020-06-11 TheAvidDev - Add player health alterations
 // 2020-06-03 TheAvidDev - Switch to Entity superclass and create setters
 // 2020-05-30 TheAvidDev - Add player animations
 // 2020-05-29 TheAvidDev - Add player collision
@@ -108,14 +109,23 @@ public class Player extends Entity {
 	 * Alter the player's infection risk.
 	 */
 	public void changeInfectionRisk(float deltaInfectionRisk) {
-		infectionRisk = Math.min(0, infectionRisk + deltaInfectionRisk / HEALTH_DENOMINATOR);
+		infectionRisk = Math.max(0, infectionRisk + deltaInfectionRisk / HEALTH_DENOMINATOR);
 	}
 
 	/**
 	 * Alter the player's mental stability.
 	 */
 	public void changeMentalStability(float deltaMentalStability) {
-		mentalStability = Math.max(1, mentalStability + deltaMentalStability / HEALTH_DENOMINATOR);
+		mentalStability = Math.min(1, mentalStability + deltaMentalStability / HEALTH_DENOMINATOR);
+	}
+
+	/**
+	 * Determine whether the player should die because their mental stability has
+	 * reached 0 or if their infection risk has reached 1.
+	 */
+	@Override
+	public boolean shouldKill() {
+		return infectionRisk >= 1 || mentalStability <= 0;
 	}
 
 	/**

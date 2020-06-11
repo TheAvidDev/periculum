@@ -7,32 +7,36 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 
-import dev.theavid.periculum.KeyMap;
 import dev.theavid.periculum.Periculum;
 import dev.theavid.periculum.entities.Entity;
 import dev.theavid.periculum.entities.EntityType;
+import dev.theavid.periculum.entities.Option;
 import dev.theavid.periculum.entities.Player;
+import dev.theavid.periculum.events.DeathOption;
 import dev.theavid.periculum.events.Event;
+import dev.theavid.periculum.events.EventOption;
 
 /**
  * The game state in which the user is choosing an option from an event.
  * 
  * @author TheAvidDev
  */
+// 2020-06-11 TheAvidDev - Added option selection
 // 2020-06-06 TheAvidDev - Create game state
 public class ChoosingGameState extends GameState {
-	private final float UI_SCALE = 8;
+	public final static float UI_SCALE = 8;
 	private final float CAMERA_ZOOM = 2f;
 	private final float UI_PROMPT_OFFSET_Y = 20;
 	private final float UI_PROMPT_OFFSET_X = 40;
 	private final float UI_OPTION_OFFSET_X = 40;
-	private final float UI_OPTION_TEXT_OFFSET_X = 40;
 
 	private GameState originalState;
 	private Event event;
+	private Player player;
 	private boolean lastEvent;
+
+	private EventOption chosenOption;
 	private Entity[] entities;
-	private Outcome outcome;
 
 	private SpriteBatch batch = new SpriteBatch();
 
@@ -41,6 +45,7 @@ public class ChoosingGameState extends GameState {
 		super(camera);
 		this.originalState = originalState;
 		this.event = event;
+		this.player = player;
 		this.lastEvent = lastEvent;
 
 		/**
@@ -56,15 +61,29 @@ public class ChoosingGameState extends GameState {
 		entities = new Entity[event.getOptions().length + 1];
 		entities[0] = new Entity(EntityType.POPUP, 0, 0);
 		for (int i = 0; i < event.getOptions().length; i++) {
-			entities[i + 1] = new Entity(EntityType.POPUP, 10, 10 * i);
+			entities[i + 1] = new Option(camera,
+					(-EntityType.POPUP.getWidth() / 2
+							+ (EntityType.POPUP.getWidth() - EntityType.OPTION.getWidth()) / 2) * UI_SCALE,
+					(((EntityType.OPTION.getHeight() + 1) * -i) + 3) * UI_SCALE);
 		}
 	}
 
+	/**
+	 * Check whether the player has clicked on an option and if so, update the
+	 * player data accordingly.
+	 */
 	@Override
 	public void update() {
-		// TODO: Make this update based on option pressed.
-		if (KeyMap.TRANSITION.isPressed(true)) {
-			outcome = Outcome.CONTINUE;
+		if (chosenOption != null) {
+			return;
+		}
+		for (int i = 0; i < entities.length; i++) {
+			if (entities[i].shouldKill()) {
+				chosenOption = event.getOptions()[i - 1];
+				player.changeInfectionRisk(chosenOption.getInfectionRateEffect());
+				player.changeMentalStability(chosenOption.getMentalStabilityEffect());
+				break;
+			}
 		}
 	}
 
@@ -82,22 +101,13 @@ public class ChoosingGameState extends GameState {
 		EntityType entityType = entities[0].getEntityType();
 		float x = -entityType.getWidth() * UI_SCALE / 2;
 		float y = -entityType.getHeight() * UI_SCALE / 2;
-		float width = -x * 2;
-		float height = -y * 2;
+		float width = entityType.getWidth() * UI_SCALE;
+		float height = entityType.getHeight() * UI_SCALE;
 		batch.draw(entities[0].getTextureRegion(), x, y, width, height);
 		Periculum.headerFont.setColor(Color.WHITE);
 
 		/**
-		 * Draw the prompt with the following format:
-		 *  _________________
-		 * |                 | <- I_PROMPT_OFFSET_Y
-		 * |----  prompt ----|
-		 * |                 |
-		 * |                 |
-		 * |_________________|
-		 * |----|       |----|
-		 *   /\           /\
-		 *  UI_PROMPT_OFFSET_X
+		 * Draw the prompt.
 		 */
 		x = UI_PROMPT_OFFSET_X - entityType.getWidth() * UI_SCALE / 2;
 		y = -UI_PROMPT_OFFSET_Y + entityType.getHeight() * UI_SCALE / 2;
@@ -105,34 +115,17 @@ public class ChoosingGameState extends GameState {
 		Periculum.headerFont.draw(batch, event.getPrompt(), x, y, width, Align.center, true);
 
 		/**
-		 * Format the option entity and text with the following format:
-		 *
-		 *  ________________________
-		 * |                        |
-		 * |         prompt         |
-		 * |   __________________   |
-		 * |==|-----option 1-----|==| <- UI_OPTION_OFFSET_X
-		 * |   __________________   |
-		 * |==|-----option 2-----|==| <- UI_OPTION_OFFSET_X
-		 * |                        |
-		 * |                        |
-		 * |________________________|
-		 * |==|-----|      |-----|==| <- UI_OPTION_OFFSET_X
-		 *       /\          /\
-		 *   UI_OPTION_TEXT_OFFSET_X
+		 * Format the option entity and text.
 		 */
 		for (int i = 1; i < entities.length; i++) {
 			entityType = entities[i].getEntityType();
-			x = -entityType.getWidth() / 2 * UI_SCALE + UI_OPTION_OFFSET_X;
-			y = entityType.getHeight() / 2 * UI_SCALE - (entityType.getHeight() * UI_SCALE / 4) * (i + 1);
-			width = entityType.getWidth() * UI_SCALE - 2 * UI_OPTION_OFFSET_X;
-			height = entityType.getHeight() * UI_SCALE / 4 - 20;
-			batch.draw(entities[i].getTextureRegion(), x, y, width, height);
+			width = entityType.getWidth() * UI_SCALE;
+			height = entityType.getHeight() * UI_SCALE;
+			batch.draw(entities[i].getTextureRegion(), entities[i].getX(), entities[i].getY(), width, height);
 
-			x = -entityType.getWidth() / 2 * UI_SCALE + UI_OPTION_TEXT_OFFSET_X;
-			y = entityType.getHeight() / 2 * UI_SCALE - (entityType.getHeight() * UI_SCALE / 4) * i - height / 2
-					- Periculum.headerFont.getLineHeight() / 2;
-			width = entityType.getWidth() * UI_SCALE - 2 * UI_OPTION_TEXT_OFFSET_X;
+			x = entities[i].getX() + UI_OPTION_OFFSET_X;
+			y = entities[i].getY() + entityType.getHeight() * UI_SCALE - entityType.getHeight() * UI_SCALE / 4;
+			width = entityType.getWidth() * UI_SCALE - 2 * UI_OPTION_OFFSET_X;
 			Periculum.headerFont.draw(batch, event.getOptions()[i - 1].getName(), x, y, width, Align.center, true);
 		}
 		batch.end();
@@ -146,9 +139,14 @@ public class ChoosingGameState extends GameState {
 
 	@Override
 	public boolean shouldTransition() {
-		return outcome != null;
+		return chosenOption != null;
 	}
 
+	/**
+	 * Determine whether the player continues playing, dies from selecting an option
+	 * that instantly kills, dies from selecting an option that brings their health
+	 * to a loss, or wins by surviving with health.
+	 */
 	@Override
 	public GameState getNextGameState() {
 		/**
@@ -157,19 +155,15 @@ public class ChoosingGameState extends GameState {
 		camera.zoom = 1f;
 		camera.update();
 
-		if (outcome == Outcome.WIN) {
-			// TODO: return new WinGameState();
-		}
-		if (outcome == Outcome.LOSS) {
-			// TODO: return new DeathGameState(...);
+		if (chosenOption instanceof DeathOption) {
+			return new DeathGameState(camera, ((DeathOption) chosenOption));
+		} else {
+			if (player.shouldKill()) {
+				return new DeathGameState(camera, ((DeathOption) chosenOption));
+			} else if (lastEvent) {
+				// TODO: return new WinGameState();
+			}
 		}
 		return originalState;
-	}
-
-	/**
-	 * A simple enum to determine what the next GameScene should be.
-	 */
-	private enum Outcome {
-		CONTINUE, WIN, LOSS;
 	}
 }

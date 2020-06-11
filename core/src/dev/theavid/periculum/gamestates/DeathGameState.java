@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import dev.theavid.periculum.KeyMap;
+import dev.theavid.periculum.events.DeathOption;
 
 /**
  * The state where the player is notified of their failure.
@@ -25,10 +26,10 @@ public class DeathGameState extends GameState {
 	private BitmapFont font = new BitmapFont();
 	private Transition transition;
 
-	public DeathGameState(OrthographicCamera camera, String deathMessage, String deathIconFilename) {
+	public DeathGameState(OrthographicCamera camera, DeathOption deathOption) {
 		super(camera);
-		this.deathMessage = deathMessage;
-		this.deathIconFilename = deathIconFilename;
+		this.deathMessage = deathOption.getDeathMessage();
+		this.deathIconFilename = deathOption.getDeathIconFilename();
 		font.setColor(Color.WHITE);
 	}
 
@@ -76,7 +77,6 @@ public class DeathGameState extends GameState {
 	}
 
 	private enum Transition {
-		QUIT, 
-		RESTART;
+		QUIT, RESTART;
 	}
 }
