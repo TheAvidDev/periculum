@@ -1,0 +1,4 @@
+You're developed a cough. Should you self quarantine and avoid going outside? 
+  2
+  Yes, you'll quarantine yourself from others|0|-2
+  No, you think it's probably fine|1|1

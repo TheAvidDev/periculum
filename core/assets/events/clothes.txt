@@ -1,0 +1,4 @@
+You arrive home from class. Should you change your clothes before doing anything else? 
+  2
+  Yes, you'll change|-1|-1
+  No, you won't change|1|1

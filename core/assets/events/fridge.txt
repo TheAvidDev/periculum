@@ -1,0 +1,4 @@
+Your fridge is looking kind of empty. Should you go shopping? 
+  2 
+  Yes, you got shopping|1|2
+  No, you'll probably last another week|2|-2

@@ -1,0 +1,5 @@
+Your good friend Kevin wants to move in with you while he's looking for a new place. You're not sure where he's been recently. Should you let him crash at your place? 
+  2
+  Yes, Kevin can come live with you|2|1
+  No, you can't risk that|0|-1
+  

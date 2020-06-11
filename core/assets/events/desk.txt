@@ -1,0 +1,4 @@
+You arrive to math class. You friend is waving to you, askign you to join them in the next seat. You scan the room and you see a cluster of empty seats in the corner.
+  2
+  You sit next to your friend|2|2
+  You sit among the the empty seats|-1|-1

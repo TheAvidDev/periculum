@@ -1,0 +1,4 @@
+Before you leave your house for class, should you wear a face mask? 
+  2
+  Yes, you'll wear a face mask|-1|-1
+  No, hyou won't wear a face mask|1|1
