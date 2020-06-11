@@ -6,7 +6,7 @@ package dev.theavid.periculum.events;
  * @author TheAvidDev
  */
 // 2020-06-05 TheAviDev - Created DeathOption class
-public class DeathOption extends Option {
+public class DeathOption extends EventOption {
 	private String deathMessage;
 	private String deathIconFilename;
 

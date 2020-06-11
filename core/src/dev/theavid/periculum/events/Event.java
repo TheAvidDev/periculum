@@ -14,7 +14,7 @@ public enum Event {
 	COMPLETE_ISOLATION("isolate.txt");
 
 	private String prompt;
-	private Option[] options;
+	private EventOption[] options;
 
 	private Event(String filename) {
 		/**
@@ -66,7 +66,7 @@ public enum Event {
 		 * `events/' will be prepended to this filename. Once again, Any amount of
 		 * leading and trailing whitespace is allowed.
 		 */
-		options = new Option[length];
+		options = new EventOption[length];
 		for (int i = 0; i < length; i++) {
 			String[] tokens;
 			tokens = file[i + 2].trim().split("\\|");
@@ -75,7 +75,7 @@ public enum Event {
 			 * Create the new Option depending on token length.
 			 */
 			if (tokens.length == 3) {
-				options[i] = new Option(tokens[0], Float.parseFloat(tokens[1]), Float.parseFloat(tokens[2]));
+				options[i] = new EventOption(tokens[0], Float.parseFloat(tokens[1]), Float.parseFloat(tokens[2]));
 			} else if (tokens.length == 5) {
 				options[i] = new DeathOption(tokens[0], Float.parseFloat(tokens[1]), Float.parseFloat(tokens[2]),
 						tokens[3], tokens[4]);
@@ -91,7 +91,7 @@ public enum Event {
 		return prompt;
 	}
 
-	public Option[] getOptions() {
+	public EventOption[] getOptions() {
 		return options;
 	}
 }
