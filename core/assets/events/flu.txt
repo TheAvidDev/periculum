@@ -1,0 +1,4 @@
+Should you get the flu shot? 
+  2
+  Yes ,stay up to date with flu shots|-1|1
+  No, it's probably not important|1|0

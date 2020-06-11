@@ -1,0 +1,4 @@
+You went shopping. Which payment method is safest: cash or credit/debit card?
+  2
+  You pay with cash|1|0
+  You pay with credit/debit card|1|0

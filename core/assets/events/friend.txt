@@ -1,0 +1,4 @@
+You deicde that you're feeling a little lonely and isolated. Do you think it's a good idea to call your friend? 
+  2
+  Yes, you'll call up a friend|0|3
+  No, your friend is probably busy|0|-2

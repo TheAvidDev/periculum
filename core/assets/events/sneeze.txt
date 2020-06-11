@@ -1,0 +1,5 @@
+You have an irresistible urge to sneeze. Should you cover your mouth? 
+  3
+  Don't cover your mouth|1|0
+  Sneeze into your palm|1|0
+  Sneeze into your elbow|0|1
