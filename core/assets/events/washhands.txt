@@ -1,5 +1,5 @@
-After going to the bathroom, how should you wash your hands? 
+After going to the bathroom, how should you wash your hands?
   3
-  Don't wash|2||0
+  Don't wash|2|0
   Wash with water|1|0
   Wash with soap and water|-1|0

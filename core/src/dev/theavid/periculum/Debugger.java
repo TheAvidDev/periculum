@@ -91,6 +91,7 @@ public class Debugger {
 		shapeRenderer.rect((int) (mousePos.x / 16) * 16, (int) ((mousePos.y - 11) / 16) * 16 + 11, 16, 16);
 		shapeRenderer.setColor(1, 1, 1, 0.5f);
 		shapeRenderer.rect((int) (mousePos.x / 16) * 16, (int) (mousePos.y / 16) * 16, 16, 16);
+		System.out.println(mousePos.x + "," + mousePos.y);
 	}
 
 	/**
