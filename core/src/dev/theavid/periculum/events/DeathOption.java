@@ -10,10 +10,6 @@ public class DeathOption extends EventOption {
 	private String deathMessage;
 	private String deathIconFilename;
 
-	public DeathOption(String name, float infectionRateEffect, float mentalStabilityEffect) {
-		super(name, infectionRateEffect, mentalStabilityEffect);
-	}
-
 	/**
 	 * Creates a regular Option with two extra parameters needed for a death screen.
 	 * 
@@ -23,7 +19,7 @@ public class DeathOption extends EventOption {
 	 */
 	public DeathOption(String name, float infectionRateEffect, float mentalStabilityEffect, String deathMessage,
 			String deathIconFilename) {
-		this(name, infectionRateEffect, mentalStabilityEffect);
+		super(name, infectionRateEffect, mentalStabilityEffect);
 		this.deathMessage = deathMessage;
 		this.deathIconFilename = deathIconFilename;
 	}
