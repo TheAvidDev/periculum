@@ -22,24 +22,31 @@ import dev.theavid.periculum.gamestates.PlayingGameState;
 // 2020-05-29 TheAvidDev - Fix player jittering by passing position as float
 // 2020-05-27 TheAvidDev - Create basic player class with movement
 public class Player extends Entity {
-	private final int ANIMATION_SPEED = 4 * 4; // Multiple of 4
-	private final float VELOCITY_MINIMUM = 0.1f;
-	private final float VELOCITY_MAXIMUM = 10f;
-	private final float VELOCITY_MULTIPLIER = 0.5f;
-	private final float MOVEMENT_VELOCITY = 50f;
+	protected final int ANIMATION_SPEED = 4 * 4; // Multiple of 4
+	protected final float VELOCITY_MINIMUM = 0.1f;
+	protected final float VELOCITY_MAXIMUM = 10f;
+	protected final float VELOCITY_MULTIPLIER = 0.5f;
+	protected final float MOVEMENT_VELOCITY = 50f;
 	private final float HEALTH_DENOMINATOR = 7;
 
+	protected int animationFrame = 0;
+	protected double animationCounter = 0;
+	protected int direction = 0;
 	private ShapeRenderer shapeRenderer = new ShapeRenderer();
 	private float xVel = 0;
 	private float yVel = 0;
-	private int animationFrame = 0;
-	private double animationCounter = 0;
-	private int direction = 0;
 	private float infectionRisk = 0;
 	private float mentalStability = 1;
 
 	public Player(float x, float y) {
-		super(EntityType.PLAYER, x, y);
+		this(EntityType.PLAYER, x, y);
+	}
+
+	/**
+	 * Allow creation of a player with a non-default sprite (EntityType).
+	 */
+	public Player(EntityType playerType, float x, float y) {
+		super(playerType, x, y);
 	}
 
 	/**
@@ -69,26 +76,7 @@ public class Player extends Entity {
 		}
 		animationFrame = (int) animationCounter / (ANIMATION_SPEED / 4);
 
-		/**
-		 * Movement control and limiting
-		 */
-		float dt = Gdx.graphics.getDeltaTime();
-		if (KeyMap.DOWN.isPressed()) {
-			setYVel(getYVel() - MOVEMENT_VELOCITY * dt);
-			direction = 0;
-		}
-		if (KeyMap.UP.isPressed()) {
-			setYVel(getYVel() + MOVEMENT_VELOCITY * dt);
-			direction = 1;
-		}
-		if (KeyMap.RIGHT.isPressed()) {
-			setXVel(getXVel() + MOVEMENT_VELOCITY * dt);
-			direction = 2;
-		}
-		if (KeyMap.LEFT.isPressed()) {
-			setXVel(getXVel() - MOVEMENT_VELOCITY * dt);
-			direction = 3;
-		}
+		updateVelocity();
 
 		if (-VELOCITY_MINIMUM < getXVel() && getXVel() < VELOCITY_MINIMUM) {
 			setXVel(0);
@@ -107,6 +95,29 @@ public class Player extends Entity {
 		}
 		if (getXVel() < -VELOCITY_MAXIMUM) {
 			setXVel(-VELOCITY_MAXIMUM);
+		}
+	}
+
+	/**
+	 * Movement control and limiting.
+	 */
+	protected void updateVelocity() {
+		float dt = Gdx.graphics.getDeltaTime();
+		if (KeyMap.DOWN.isPressed()) {
+			setYVel(getYVel() - MOVEMENT_VELOCITY * dt);
+			direction = 0;
+		}
+		if (KeyMap.UP.isPressed()) {
+			setYVel(getYVel() + MOVEMENT_VELOCITY * dt);
+			direction = 1;
+		}
+		if (KeyMap.RIGHT.isPressed()) {
+			setXVel(getXVel() + MOVEMENT_VELOCITY * dt);
+			direction = 2;
+		}
+		if (KeyMap.LEFT.isPressed()) {
+			setXVel(getXVel() - MOVEMENT_VELOCITY * dt);
+			direction = 3;
 		}
 	}
 
@@ -173,7 +184,7 @@ public class Player extends Entity {
 	 * 
 	 * @return the new x position for the player
 	 */
-	private double getNewX() {
+	protected double getNewX() {
 		if (getXVel() < 0) {
 			for (int i = 0; i >= (int) Math.floor(getXVel()); i--) {
 				if (PlayingGameState.level.isColliding((int) x + i + 1, (int) y + 1, 12, 14)) {
@@ -198,7 +209,7 @@ public class Player extends Entity {
 	 * 
 	 * @return the new y position for the player
 	 */
-	private double getNewY() {
+	protected double getNewY() {
 		if (getYVel() < 0) {
 			for (int i = 0; i >= (int) Math.floor(getYVel()); i--) {
 				if (PlayingGameState.level.isColliding((int) x + 2, (int) y + i, 12, 14)) {

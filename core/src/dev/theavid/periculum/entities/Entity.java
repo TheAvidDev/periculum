@@ -18,7 +18,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Entity {
 	protected float x;
 	protected float y;
-	private EntityType entityType;
+	protected EntityType entityType;
 
 	public Entity(EntityType entityType, float x, float y) {
 		this.entityType = entityType;

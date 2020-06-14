@@ -14,6 +14,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public enum EntityType {
 	NOTIFIER("notifier.png", false, 16, 16),
 	PLAYER("player.png", false, 16, 16),
+	PLAYER2("player2.png", false, 16, 16),
+	PLAYER3("player3.png", false, 16, 16),
 	DOOR("door.png", false, 16, 11),
 	POPUP("popup.png", false, 64, 48),
 	OPTION("option.png", false, 58, 12);
