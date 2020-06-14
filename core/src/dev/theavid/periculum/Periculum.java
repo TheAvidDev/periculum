@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import dev.theavid.periculum.entities.EntityType;
 import dev.theavid.periculum.gamestates.GameState;
 import dev.theavid.periculum.gamestates.PlayingGameState;
-import dev.theavid.periculum.gamestates.SplashGameState;
+import dev.theavid.periculum.gamestates.ImageGameState;
 
 /**
  * Main game class which handles game states and the transitions between them.
@@ -43,7 +43,7 @@ public class Periculum extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 320, 320 * (4 / 3));
 		shapeRenderer = new ShapeRenderer();
-		currentGameState = new SplashGameState(camera);
+		currentGameState = new ImageGameState(camera, "logo_name.png", 1/6f);
 
 		/**
 		 * Create main font of default 16 point size.

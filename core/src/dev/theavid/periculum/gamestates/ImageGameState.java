@@ -11,24 +11,26 @@ import dev.theavid.periculum.KeyMap;
 import dev.theavid.periculum.Periculum;
 
 /**
- * A simple splash screen with an image displayed on the center of the screen.
+ * A simple game scene with an image displayed on the center of the screen.
  * 
  * @author TheAvidDev
  * @author hirundinidae
  */
+// 2020-06-13 TheAvidDev - Converted to more generic image game scene
 // 2020-06-04 hirundinidae - Added new GameState methods 
 // 2020-06-04 hirundinidae - Changed logo and company name png
 // 2020-05-30 TheAvidDev - Created splash screen game state
-public class SplashGameState extends GameState {
-	private final float IMAGE_SCALE = 1 / 6f;
+public class ImageGameState extends GameState {
 
 	private SpriteBatch batch;
 	private Texture logo;
+	private float scale;
 
-	public SplashGameState(OrthographicCamera camera) {
+	public ImageGameState(OrthographicCamera camera, String filename, float scale) {
 		super(camera);
 		batch = new SpriteBatch();
-		logo = new Texture("logo/logo_name.png");
+		logo = new Texture("img/" + filename);
+		this.scale = scale;
 
 		camera.zoom = 2f;
 		camera.position.set(0, 0, 0);
@@ -41,8 +43,8 @@ public class SplashGameState extends GameState {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-		batch.draw(logo, -logo.getWidth() * IMAGE_SCALE, -logo.getHeight() * IMAGE_SCALE,
-				logo.getWidth() * IMAGE_SCALE * 2, logo.getHeight() * IMAGE_SCALE * 2);
+		batch.draw(logo, -logo.getWidth() * scale, -logo.getHeight() * scale, logo.getWidth() * scale * 2,
+				logo.getHeight() * scale * 2);
 		Periculum.headerFont.draw(batch, "Press Space to continue.", -camera.viewportWidth / 2 + 20,
 				-camera.viewportHeight / 2 + 16, camera.viewportWidth - 40, Align.center, true);
 		batch.end();
