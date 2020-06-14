@@ -154,12 +154,12 @@ public class ChoosingGameState extends GameState {
 	@Override
 	public GameState getNextGameState() {
 		if (chosenOption instanceof DeathOption) {
-			return new DeathGameState(camera, ((DeathOption) chosenOption));
+			return new EndGameState(camera, ((DeathOption) chosenOption));
 		} else {
 			if (player.shouldKill()) {
-				return new DeathGameState(camera);
+				return new EndGameState(camera, true);
 			} else if (lastEvent) {
-				// TODO: return new WinGameState();
+				return new EndGameState(camera, false);
 			}
 		}
 		return originalState;

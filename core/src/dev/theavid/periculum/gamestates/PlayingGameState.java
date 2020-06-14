@@ -48,7 +48,10 @@ public class PlayingGameState extends GameState {
 		level = new Level();
 		debugger = new Debugger(getPlayer(), level, camera);
 
+		eventList.add(new FullEvent(Event.COMPLETE_ISOLATION, new Vector2(1351, 980)));
+
 		// TODO: make fridge remove shopping event
+		/*
 		eventList.add(new FullEvent(Event.FRIDGE, new Vector2(1354, 949)));
 		eventList.add(new FullEvent(Event.CASH, new Vector2(1351, 949)));
 		eventList.add(new FullEvent(Event.MASK, new Vector2(1382, 883)));
@@ -62,7 +65,7 @@ public class PlayingGameState extends GameState {
 		eventList.add(new FullEvent(Event.CLOTHES, new Vector2(1385, 881)));
 		eventList.add(new FullEvent(Event.SINK, new Vector2(1384, 1038)));
 		eventList.add(new FullEvent(Event.COMPLETE_ISOLATION, new Vector2(1351, 980)));
-		eventList.add(new FullEvent(Event.FRIEND, new Vector2(1291, 1018)));
+		eventList.add(new FullEvent(Event.FRIEND, new Vector2(1291, 1018)));*/
 
 		// Kickstart the game by adding a first event
 		entityList.add(new Notifier(eventList.get(0).getX(), eventList.get(0).getY()));
