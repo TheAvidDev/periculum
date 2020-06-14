@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import dev.theavid.periculum.Debugger;
 import dev.theavid.periculum.Level;
+import dev.theavid.periculum.entities.AIPlayer;
 import dev.theavid.periculum.entities.Entity;
 import dev.theavid.periculum.entities.Notifier;
 import dev.theavid.periculum.entities.Player;
@@ -33,6 +34,12 @@ import dev.theavid.periculum.events.Event;
 // 2020-05-28 TheAvidDev - Clean up code, removed libGDX defaults
 // 2020-05-27 hirundinidae - Add level creation and rendering
 public class PlayingGameState extends GameState {
+	private final float RANDOM_SPAWN_AMOUNT = 15;
+	private final float RANDOM_SPAWN_X_MIN = 766;
+	private final float RANDOM_SPAWN_X_MAX = 1572;
+	private final float RANDOM_SPAWN_Y_MIN = 580;
+	private final float RANDOM_SPAWN_Y_MAX = 1216;
+
 	public static Debugger debugger;
 	public static ArrayList<Entity> entityList;
 	public static ArrayList<FullEvent> eventList;
@@ -56,6 +63,18 @@ public class PlayingGameState extends GameState {
 			// TODO: replace with learning events
 			eventList.add(new FullEvent(Event.COMPLETE_ISOLATION, new Vector2(1351, 980)));
 		} else {
+			/**
+			 * Spawn in random walking players.
+			 */
+			for (int i = 0; i < RANDOM_SPAWN_AMOUNT; i++) {
+				float x, y;
+				do {
+					x = (float) (Math.random() * (RANDOM_SPAWN_X_MAX - RANDOM_SPAWN_X_MIN) + RANDOM_SPAWN_X_MIN);
+					y = (float) (Math.random() * (RANDOM_SPAWN_Y_MAX - RANDOM_SPAWN_Y_MIN) + RANDOM_SPAWN_Y_MIN);
+				} while (PlayingGameState.level.isColliding((int) x + 1, (int) y + 1, 12, 14));
+				entityList.add(new AIPlayer(x, y));
+			}
+
 			eventList.add(new FullEvent(Event.FRIDGE, new Vector2(1354, 949)));
 			eventList.add(new FullEvent(Event.CASH, new Vector2(1351, 949)));
 			eventList.add(new FullEvent(Event.MASK, new Vector2(1382, 883)));
