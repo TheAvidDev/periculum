@@ -47,23 +47,23 @@ public class PlayingGameState extends GameState {
 		entityList.add(new Player(1260, 1010));
 		level = new Level();
 		debugger = new Debugger(getPlayer(), level, camera);
-		
+
 		// TODO: make fridge remove shopping event
-		eventList.add(new FullEvent(Event.FRIDGE, new Vector2(1354, 949))); 
-		eventList.add(new FullEvent(Event.CASH, new Vector2(1351,949)));
-		eventList.add(new FullEvent(Event.MASK, new Vector2(1382,883)));
-		eventList.add(new FullEvent(Event.SNEEZE, new Vector2(1272,776)));
+		eventList.add(new FullEvent(Event.FRIDGE, new Vector2(1354, 949)));
+		eventList.add(new FullEvent(Event.CASH, new Vector2(1351, 949)));
+		eventList.add(new FullEvent(Event.MASK, new Vector2(1382, 883)));
+		eventList.add(new FullEvent(Event.SNEEZE, new Vector2(1272, 776)));
 		eventList.add(new FullEvent(Event.FLU, new Vector2(1079, 795)));
-		eventList.add(new FullEvent(Event.DESK, new Vector2(1031,882)));
-		eventList.add(new FullEvent(Event.WASH_HANDS, new Vector2(915,1034)));
-		eventList.add(new FullEvent(Event.KEVIN, new Vector2(947,886))); 
-		eventList.add(new FullEvent(Event.MOVIE, new Vector2(1141,792)));
-		eventList.add(new FullEvent(Event.DRINK, new Vector2(1321,775)));
-		eventList.add(new FullEvent(Event.CLOTHES, new Vector2(1385,881)));
-		eventList.add(new FullEvent(Event.SINK, new Vector2(1384,1038)));
-		eventList.add(new FullEvent(Event.COMPLETE_ISOLATION, new Vector2(1351,980)));
-		eventList.add(new FullEvent(Event.FRIEND, new Vector2(1291,1018)));
-		
+		eventList.add(new FullEvent(Event.DESK, new Vector2(1031, 882)));
+		eventList.add(new FullEvent(Event.WASH_HANDS, new Vector2(915, 1034)));
+		eventList.add(new FullEvent(Event.KEVIN, new Vector2(947, 886)));
+		eventList.add(new FullEvent(Event.MOVIE, new Vector2(1141, 792)));
+		eventList.add(new FullEvent(Event.DRINK, new Vector2(1321, 775)));
+		eventList.add(new FullEvent(Event.CLOTHES, new Vector2(1385, 881)));
+		eventList.add(new FullEvent(Event.SINK, new Vector2(1384, 1038)));
+		eventList.add(new FullEvent(Event.COMPLETE_ISOLATION, new Vector2(1351, 980)));
+		eventList.add(new FullEvent(Event.FRIEND, new Vector2(1291, 1018)));
+
 		// Kickstart the game by adding a first event
 		entityList.add(new Notifier(eventList.get(0).getX(), eventList.get(0).getY()));
 	}
@@ -110,9 +110,9 @@ public class PlayingGameState extends GameState {
 			batch.draw(entityList.get(i).getTextureRegion(), entityList.get(i).getX(), entityList.get(i).getY());
 		}
 		batch.end();
-		
+
 		level.renderForeground(camera);
-		
+
 		for (Entity entity : entityList) {
 			entity.additionalRender(camera);
 		}
