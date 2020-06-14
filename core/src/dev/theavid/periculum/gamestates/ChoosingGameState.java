@@ -133,8 +133,12 @@ public class ChoosingGameState extends GameState {
 
 	@Override
 	public void dispose() {
+		camera.zoom = 1f;
+		camera.update();
 		batch.dispose();
-		entities[0].dispose();
+		for (Entity entity : entities) {
+			entity.dispose();
+		}
 	}
 
 	@Override
@@ -149,12 +153,6 @@ public class ChoosingGameState extends GameState {
 	 */
 	@Override
 	public GameState getNextGameState() {
-		/**
-		 * Reset the zoom back to that of the rest of the game.
-		 */
-		camera.zoom = 1f;
-		camera.update();
-
 		if (chosenOption instanceof DeathOption) {
 			return new DeathGameState(camera, ((DeathOption) chosenOption));
 		} else {
