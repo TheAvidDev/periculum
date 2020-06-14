@@ -11,7 +11,6 @@ import com.badlogic.gdx.math.Vector2;
 import dev.theavid.periculum.Debugger;
 import dev.theavid.periculum.Level;
 import dev.theavid.periculum.entities.Entity;
-import dev.theavid.periculum.entities.EntityType;
 import dev.theavid.periculum.entities.Notifier;
 import dev.theavid.periculum.entities.Player;
 import dev.theavid.periculum.events.Event;
@@ -22,6 +21,7 @@ import dev.theavid.periculum.events.Event;
  * @author TheAvidDev
  * @author hirundinidae
  */
+// 2020-06-13 TheAvidDev - Added learning level distinction
 // 2020-06-12 hirundinidae - Added Events in desired order to eventList
 // 2020-06-04 hirundinidae - Added new GameState methods
 // 2020-06-04 TheAvidDev - Switched to entity list management system
@@ -34,36 +34,44 @@ import dev.theavid.periculum.events.Event;
 // 2020-05-27 hirundinidae - Add level creation and rendering
 public class PlayingGameState extends GameState {
 	public static Debugger debugger;
-	public static ArrayList<Entity> entityList = new ArrayList<Entity>();
+	public static ArrayList<Entity> entityList;
 	public static Level level;
 
 	private SpriteBatch batch = new SpriteBatch();
 	private ArrayList<FullEvent> eventList = new ArrayList<FullEvent>();
 	private boolean makingChoice = false;
+	private boolean learning;
 
-	public PlayingGameState(OrthographicCamera camera) {
+	public PlayingGameState(OrthographicCamera camera, boolean learning) {
 		super(camera);
+		entityList = new ArrayList<Entity>();
 		// The Player entity is always the first object in the entityList
 		entityList.add(new Player(1260, 1010));
 		level = new Level();
 		debugger = new Debugger(getPlayer(), level, camera);
-		
-		// TODO: make fridge remove shopping event
-		eventList.add(new FullEvent(Event.FRIDGE, new Vector2(1354, 949))); 
-		eventList.add(new FullEvent(Event.CASH, new Vector2(1351,949)));
-		eventList.add(new FullEvent(Event.MASK, new Vector2(1382,883)));
-		eventList.add(new FullEvent(Event.SNEEZE, new Vector2(1272,776)));
-		eventList.add(new FullEvent(Event.FLU, new Vector2(1079, 795)));
-		eventList.add(new FullEvent(Event.DESK, new Vector2(1031,882)));
-		eventList.add(new FullEvent(Event.WASH_HANDS, new Vector2(915,1034)));
-		eventList.add(new FullEvent(Event.KEVIN, new Vector2(947,886))); 
-		eventList.add(new FullEvent(Event.MOVIE, new Vector2(1141,792)));
-		eventList.add(new FullEvent(Event.DRINK, new Vector2(1321,775)));
-		eventList.add(new FullEvent(Event.CLOTHES, new Vector2(1385,881)));
-		eventList.add(new FullEvent(Event.SINK, new Vector2(1384,1038)));
-		eventList.add(new FullEvent(Event.COMPLETE_ISOLATION, new Vector2(1351,980)));
-		eventList.add(new FullEvent(Event.FRIEND, new Vector2(1291,1018)));
-		
+		this.learning = learning;
+
+		if (this.learning) {
+			// TODO: replace with learning events
+			eventList.add(new FullEvent(Event.COMPLETE_ISOLATION, new Vector2(1351, 980)));
+		} else {
+			// TODO: make fridge remove shopping event
+			eventList.add(new FullEvent(Event.FRIDGE, new Vector2(1354, 949)));
+			eventList.add(new FullEvent(Event.CASH, new Vector2(1351, 949)));
+			eventList.add(new FullEvent(Event.MASK, new Vector2(1382, 883)));
+			eventList.add(new FullEvent(Event.SNEEZE, new Vector2(1272, 776)));
+			eventList.add(new FullEvent(Event.FLU, new Vector2(1079, 795)));
+			eventList.add(new FullEvent(Event.DESK, new Vector2(1031, 882)));
+			eventList.add(new FullEvent(Event.WASH_HANDS, new Vector2(915, 1034)));
+			eventList.add(new FullEvent(Event.KEVIN, new Vector2(947, 886)));
+			eventList.add(new FullEvent(Event.MOVIE, new Vector2(1141, 792)));
+			eventList.add(new FullEvent(Event.DRINK, new Vector2(1321, 775)));
+			eventList.add(new FullEvent(Event.CLOTHES, new Vector2(1385, 881)));
+			eventList.add(new FullEvent(Event.SINK, new Vector2(1384, 1038)));
+			eventList.add(new FullEvent(Event.COMPLETE_ISOLATION, new Vector2(1351, 980)));
+			eventList.add(new FullEvent(Event.FRIEND, new Vector2(1291, 1018)));
+		}
+
 		// Kickstart the game by adding a first event
 		entityList.add(new Notifier(eventList.get(0).getX(), eventList.get(0).getY()));
 	}
@@ -93,8 +101,7 @@ public class PlayingGameState extends GameState {
 		 * Rounding to tenth of a pixel removes extremely common black lines between
 		 * tiles. However, this doesn't fix them on all resolutions.
 		 */
-		camera.position.set(Math.round(getPlayer().getX() * 10f) / 10f, Math.round(getPlayer().getY() * 10f) / 10f, 0);
-		camera.update();
+
 		debugger.update();
 	}
 
@@ -112,6 +119,10 @@ public class PlayingGameState extends GameState {
 		batch.end();
 
 		level.renderForeground(camera);
+
+		for (Entity entity : entityList) {
+			entity.additionalRender(camera);
+		}
 		debugger.render();
 	}
 
@@ -119,9 +130,6 @@ public class PlayingGameState extends GameState {
 	public void dispose() {
 		for (Entity entity : entityList) {
 			entity.dispose();
-		}
-		for (EntityType entityType : EntityType.values()) {
-			entityType.dispose();
 		}
 		batch.dispose();
 		level.dispose();
@@ -167,7 +175,7 @@ public class PlayingGameState extends GameState {
 		if (!isLastEvent) {
 			entityList.add(new Notifier(eventList.get(0).getX(), eventList.get(0).getY()));
 		}
-		return new ChoosingGameState(this, camera, currentEvent, (Player) getPlayer(), isLastEvent);
+		return new ChoosingGameState(this, camera, currentEvent, (Player) getPlayer(), isLastEvent, learning);
 	}
 
 	class FullEvent {

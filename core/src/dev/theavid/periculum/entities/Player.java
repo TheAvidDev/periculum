@@ -1,7 +1,10 @@
 package dev.theavid.periculum.entities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 import dev.theavid.periculum.KeyMap;
 import dev.theavid.periculum.gamestates.PlayingGameState;
@@ -11,6 +14,7 @@ import dev.theavid.periculum.gamestates.PlayingGameState;
  * 
  * @author TheAvidDev
  */
+// 2020-06-13 TheAvidDev - Added health bars and changed health denominator
 // 2020-06-11 TheAvidDev - Add player health alterations
 // 2020-06-03 TheAvidDev - Switch to Entity superclass and create setters
 // 2020-05-30 TheAvidDev - Add player animations
@@ -23,8 +27,9 @@ public class Player extends Entity {
 	private final float VELOCITY_MAXIMUM = 10f;
 	private final float VELOCITY_MULTIPLIER = 0.5f;
 	private final float MOVEMENT_VELOCITY = 50f;
-	private final float HEALTH_DENOMINATOR = 10;
+	private final float HEALTH_DENOMINATOR = 7;
 
+	private ShapeRenderer shapeRenderer = new ShapeRenderer();
 	private float xVel = 0;
 	private float yVel = 0;
 	private int animationFrame = 0;
@@ -103,6 +108,40 @@ public class Player extends Entity {
 		if (getXVel() < -VELOCITY_MAXIMUM) {
 			setXVel(-VELOCITY_MAXIMUM);
 		}
+	}
+
+	/**
+	 * Does the additional rendering required for the health bars.
+	 */
+	@Override
+	public void additionalRender(OrthographicCamera camera) {
+		shapeRenderer.setProjectionMatrix(camera.combined);
+		shapeRenderer.begin(ShapeType.Filled);
+		float barX = getX() - camera.viewportWidth / 2 + 5;
+		float baseY = getY() - camera.viewportHeight / 2 + 5;
+
+		/**
+		 * Render the health bar box and bars.
+		 *
+		 * TODO: Don't hard code colors or dimensions.
+		 */
+		shapeRenderer.setColor(0.698f, 0.686f, 0.651f, 1f);
+		shapeRenderer.rect(barX - 3, baseY - 3, 46, 18);
+		shapeRenderer.setColor(0.255f, 0.275f, 0.325f, 1f);
+		shapeRenderer.rect(barX - 2, baseY - 2, 44, 16);
+		shapeRenderer.setColor(0.773f, 0.180f, 0.361f, 1f);
+		shapeRenderer.rect(barX, baseY + 7, 40 * infectionRisk, 5);
+		shapeRenderer.setColor(0.122f, 0.565f, 0.737f, 1f);
+		shapeRenderer.rect(barX, baseY, 40 * mentalStability, 5);
+		shapeRenderer.end();
+	}
+
+	/**
+	 * Cleanup the shape renderer we used for additional rendering.
+	 */
+	public void dispose() {
+		super.dispose();
+		shapeRenderer.dispose();
 	}
 
 	/**

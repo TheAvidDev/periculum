@@ -25,7 +25,6 @@ import dev.theavid.periculum.events.EventOption;
 // 2020-06-06 TheAvidDev - Create game state
 public class ChoosingGameState extends GameState {
 	public final static float UI_SCALE = 8;
-	private final float CAMERA_ZOOM = 2f;
 	private final float UI_PROMPT_OFFSET_Y = 20;
 	private final float UI_PROMPT_OFFSET_X = 40;
 	private final float UI_OPTION_OFFSET_X = 40;
@@ -34,6 +33,7 @@ public class ChoosingGameState extends GameState {
 	private Event event;
 	private Player player;
 	private boolean lastEvent;
+	private boolean learning;
 
 	private EventOption chosenOption;
 	private Entity[] entities;
@@ -41,18 +41,19 @@ public class ChoosingGameState extends GameState {
 	private SpriteBatch batch = new SpriteBatch();
 
 	public ChoosingGameState(GameState originalState, OrthographicCamera camera, Event event, Player player,
-			boolean lastEvent) {
+			boolean lastEvent, boolean learning) {
 		super(camera);
 		this.originalState = originalState;
 		this.event = event;
 		this.player = player;
 		this.lastEvent = lastEvent;
+		this.learning = learning;
 
 		/**
 		 * Zoom out the camera for better font rendering.
 		 */
 		camera.position.set(0, 0, 0);
-		camera.zoom = CAMERA_ZOOM;
+		camera.zoom = 2f;
 		camera.update();
 
 		/**
@@ -133,8 +134,12 @@ public class ChoosingGameState extends GameState {
 
 	@Override
 	public void dispose() {
+		camera.zoom = 1f;
+		camera.update();
 		batch.dispose();
-		entities[0].dispose();
+		for (Entity entity : entities) {
+			entity.dispose();
+		}
 	}
 
 	@Override
@@ -149,19 +154,16 @@ public class ChoosingGameState extends GameState {
 	 */
 	@Override
 	public GameState getNextGameState() {
-		/**
-		 * Reset the zoom back to that of the rest of the game.
-		 */
-		camera.zoom = 1f;
-		camera.update();
-
 		if (chosenOption instanceof DeathOption) {
-			return new DeathGameState(camera, ((DeathOption) chosenOption));
+			return new EndGameState(camera, ((DeathOption) chosenOption), learning);
 		} else {
 			if (player.shouldKill()) {
-				return new DeathGameState(camera, ((DeathOption) chosenOption));
+				return new EndGameState(camera, true, learning);
 			} else if (lastEvent) {
-				// TODO: return new WinGameState();
+				if (learning) {
+					return new ImageGameState(camera, "education_complete.png", 1 / 2f, new PlayingGameState(camera, false));
+				}
+				return new EndGameState(camera, false, false);
 			}
 		}
 		return originalState;

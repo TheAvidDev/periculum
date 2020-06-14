@@ -1,5 +1,6 @@
 package dev.theavid.periculum.entities;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
@@ -10,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * @author TheAvidDev
  * @author hirundinidae
  */
+// 2020-06-13 TheAvidDev - Created additionalRender method
 // 2020-06-03 TheAvidDev - Add methods to help with drawing and interface with
 //                         the EntityType
 // 2020-05-29 hirundinidae - Created Entitiy class
@@ -63,6 +65,13 @@ public class Entity {
 	 */
 	public TextureRegion getTextureRegion(int row, int column) {
 		return entityType.getTextureRegion(row, column);
+	}
+
+	/**
+	 * Method to allow additional rendering after any other rendering is complete.
+	 */
+	public void additionalRender(OrthographicCamera camera) {
+		return;
 	}
 
 	public float getX() {
