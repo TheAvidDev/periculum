@@ -1,4 +1,4 @@
 You're extremely worried about this contagious virus. Should you cut off all contact and live off canned beans in your house?
   2
-  Yes, play it safe|0|-5|You die from absolute an utter loneliness sitting at home with no contact...|isolate.png
+  Yes, play it safe|0|-5|You die from absolute and utter loneliness sitting at home with no contact...|isolate.png
   No, you'll be cautious but go outside|1|2
