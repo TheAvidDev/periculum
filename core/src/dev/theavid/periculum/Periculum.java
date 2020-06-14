@@ -11,7 +11,9 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
+import dev.theavid.periculum.entities.EntityType;
 import dev.theavid.periculum.gamestates.GameState;
+import dev.theavid.periculum.gamestates.PlayingGameState;
 import dev.theavid.periculum.gamestates.SplashGameState;
 
 /**
@@ -20,6 +22,7 @@ import dev.theavid.periculum.gamestates.SplashGameState;
  * @author hirundinidae
  * @author TheAvidDev
  */
+// 2020-06-13 TheAvidDev - Made sure to dispose of game states when switching
 // 2020-06-04 hirundinidae - Updated some aspects of game switching 
 // 2020-06-04 hirundinidae - Updated comment for game state transitions  
 // 2020-05-30 TheAvidDev - Switched to a game state based approach
@@ -75,6 +78,14 @@ public class Periculum extends ApplicationAdapter {
 		}
 		if (transitionCounter >= 1) {
 			transitionCounter = -1;
+			/**
+			 * The PlayingGameState is one that can get transitioned back to, so we delegate
+			 * the responsibility of cleaning it up to whatever may transition back to it.
+			 * This should be changed if more states get transitioned in and out of.
+			 */
+			if (!(currentGameState instanceof PlayingGameState)) {
+				currentGameState.dispose();
+			}
 			currentGameState = currentGameState.getNextGameState();
 		}
 	}
@@ -83,6 +94,9 @@ public class Periculum extends ApplicationAdapter {
 	public void dispose() {
 		currentGameState.dispose();
 		headerFont.dispose();
+		for (EntityType entityType : EntityType.values()) {
+			entityType.dispose();
+		}
 	}
 
 	/**

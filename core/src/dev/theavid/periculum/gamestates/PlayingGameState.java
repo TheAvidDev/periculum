@@ -11,7 +11,6 @@ import com.badlogic.gdx.math.Vector2;
 import dev.theavid.periculum.Debugger;
 import dev.theavid.periculum.Level;
 import dev.theavid.periculum.entities.Entity;
-import dev.theavid.periculum.entities.EntityType;
 import dev.theavid.periculum.entities.Notifier;
 import dev.theavid.periculum.entities.Player;
 import dev.theavid.periculum.events.Event;
@@ -124,9 +123,6 @@ public class PlayingGameState extends GameState {
 	public void dispose() {
 		for (Entity entity : entityList) {
 			entity.dispose();
-		}
-		for (EntityType entityType : EntityType.values()) {
-			entityType.dispose();
 		}
 		batch.dispose();
 		level.dispose();
