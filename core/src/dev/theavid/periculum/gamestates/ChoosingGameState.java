@@ -25,7 +25,6 @@ import dev.theavid.periculum.events.EventOption;
 // 2020-06-06 TheAvidDev - Create game state
 public class ChoosingGameState extends GameState {
 	public final static float UI_SCALE = 8;
-	private final float CAMERA_ZOOM = 2f;
 	private final float UI_PROMPT_OFFSET_Y = 20;
 	private final float UI_PROMPT_OFFSET_X = 40;
 	private final float UI_OPTION_OFFSET_X = 40;
@@ -52,7 +51,7 @@ public class ChoosingGameState extends GameState {
 		 * Zoom out the camera for better font rendering.
 		 */
 		camera.position.set(0, 0, 0);
-		camera.zoom = CAMERA_ZOOM;
+		camera.zoom = 2f;
 		camera.update();
 
 		/**

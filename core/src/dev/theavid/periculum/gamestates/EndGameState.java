@@ -45,6 +45,8 @@ public class EndGameState extends GameState {
 			icon = new Texture("events/trophy.png");
 		}
 		this.loss = loss;
+		camera.zoom = 2f;
+		camera.update();
 	}
 
 	/**
@@ -55,10 +57,7 @@ public class EndGameState extends GameState {
 		message = deathOption.getDeathMessage();
 		icon = new Texture("events/" + deathOption.getDeathIconFilename());
 		this.loss = true;
-	}
-
-	@Override
-	public void update() {
+		camera.zoom = 2f;
 		camera.update();
 	}
 
@@ -68,8 +67,6 @@ public class EndGameState extends GameState {
 	 */
 	@Override
 	public void render() {
-		camera.zoom = 2f;
-
 		/**
 		 * Clear the screen.
 		 */
@@ -130,5 +127,10 @@ public class EndGameState extends GameState {
 
 	private enum Transition {
 		QUIT, RESTART;
+	}
+
+	@Override
+	public void update() {
+		return;
 	}
 }
