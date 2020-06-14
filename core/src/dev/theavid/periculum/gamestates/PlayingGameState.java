@@ -101,7 +101,8 @@ public class PlayingGameState extends GameState {
 		 * Rounding to tenth of a pixel removes extremely common black lines between
 		 * tiles. However, this doesn't fix them on all resolutions.
 		 */
-
+		camera.position.set(Math.round(getPlayer().getX() * 10f) / 10f, Math.round(getPlayer().getY() * 10f) / 10f, 0);
+		camera.update();
 		debugger.update();
 	}
 
