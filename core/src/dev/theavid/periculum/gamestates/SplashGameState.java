@@ -20,6 +20,8 @@ import dev.theavid.periculum.Periculum;
 // 2020-06-04 hirundinidae - Changed logo and company name png
 // 2020-05-30 TheAvidDev - Created splash screen game state
 public class SplashGameState extends GameState {
+	private final float IMAGE_SCALE = 1 / 6f;
+
 	private SpriteBatch batch;
 	private Texture logo;
 
@@ -39,8 +41,8 @@ public class SplashGameState extends GameState {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-		batch.draw(logo, -logo.getWidth() / 6, -logo.getHeight() / 6, logo.getWidth() / 3, logo.getHeight() / 3, 0, 0,
-				logo.getWidth(), logo.getHeight(), false, false);
+		batch.draw(logo, -logo.getWidth() * IMAGE_SCALE, -logo.getHeight() * IMAGE_SCALE,
+				logo.getWidth() * IMAGE_SCALE * 2, logo.getHeight() * IMAGE_SCALE * 2);
 		Periculum.headerFont.draw(batch, "Press Space to continue.", -camera.viewportWidth / 2 + 20,
 				-camera.viewportHeight / 2 + 16, camera.viewportWidth - 40, Align.center, true);
 		batch.end();
