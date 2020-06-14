@@ -162,6 +162,7 @@ public class ChoosingGameState extends GameState {
 		if (event == Event.FRIDGE && chosenOption == event.getOptions()[1]) {
 			PlayingGameState.eventList.remove(0);
 		}
+		originalState.pauseMusic();
 		if (chosenOption instanceof DeathOption) {
 			return new EndGameState(camera, ((DeathOption) chosenOption), learning);
 		} else {
@@ -175,6 +176,7 @@ public class ChoosingGameState extends GameState {
 				return new EndGameState(camera, false, false);
 			}
 		}
+		originalState.playMusic();
 		return originalState;
 	}
 }

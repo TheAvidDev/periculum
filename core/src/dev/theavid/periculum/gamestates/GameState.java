@@ -1,5 +1,6 @@
 package dev.theavid.periculum.gamestates;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 /**
@@ -8,10 +9,12 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
  * @author TheAvidDev
  * @author hirundinidae
  */
+// 2020-06-13 TheAvidDev - Added music
 // 2020-06-04 hirundinidae - Added methods shouldTransistion() and getNextGameState()
 // 2020-05-30 TheAvidDev - Created abstract game state
 public abstract class GameState {
 	protected OrthographicCamera camera;
+	protected Music music;
 
 	public GameState(OrthographicCamera camera) {
 		this.camera = camera;
@@ -49,4 +52,42 @@ public abstract class GameState {
 	 * @return next GameState to transition to
 	 */
 	public abstract GameState getNextGameState();
+
+	public void setMusicVolume(float volume) {
+		if (music != null) {
+			/**
+			 * LibGDX will crash spectacularly when trying to play music that has a negative
+			 * volume. Why it doesn't crash on getting set in the first place is beyond me.
+			 */
+			music.setVolume(Math.max(0, volume));
+		}
+	}
+
+	/**
+	 * Start playing the music from the start or from previous pause point.
+	 */
+	public void playMusic() {
+		if (music != null && !music.isPlaying()) {
+			music.play();
+		}
+	}
+
+	/**
+	 * Pause the music so it can be resumed later.
+	 */
+	public void pauseMusic() {
+		if (music != null) {
+			music.pause();
+		}
+	}
+
+	/**
+	 * Stop and dispose of the music.
+	 */
+	public void stopMusic() {
+		if (music != null) {
+			music.stop();
+			music.dispose();
+		}
+	}
 }
