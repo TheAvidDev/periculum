@@ -34,7 +34,7 @@ import dev.theavid.periculum.events.Event;
 // 2020-05-27 hirundinidae - Add level creation and rendering
 public class PlayingGameState extends GameState {
 	public static Debugger debugger;
-	public static ArrayList<Entity> entityList = new ArrayList<Entity>();
+	public static ArrayList<Entity> entityList;
 	public static Level level;
 
 	private SpriteBatch batch = new SpriteBatch();
@@ -43,6 +43,7 @@ public class PlayingGameState extends GameState {
 
 	public PlayingGameState(OrthographicCamera camera) {
 		super(camera);
+		entityList = new ArrayList<Entity>();
 		// The Player entity is always the first object in the entityList
 		entityList.add(new Player(1260, 1010));
 		level = new Level();
