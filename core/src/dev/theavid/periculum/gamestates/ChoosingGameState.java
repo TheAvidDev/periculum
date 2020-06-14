@@ -157,7 +157,7 @@ public class ChoosingGameState extends GameState {
 			return new DeathGameState(camera, ((DeathOption) chosenOption));
 		} else {
 			if (player.shouldKill()) {
-				return new DeathGameState(camera, ((DeathOption) chosenOption));
+				return new DeathGameState(camera);
 			} else if (lastEvent) {
 				// TODO: return new WinGameState();
 			}
