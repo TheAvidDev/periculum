@@ -25,16 +25,14 @@ public class ImageGameState extends GameState {
 	private SpriteBatch batch;
 	private Texture logo;
 	private float scale;
+	private GameState nextGameState;
 
-	public ImageGameState(OrthographicCamera camera, String filename, float scale) {
+	public ImageGameState(OrthographicCamera camera, String filename, float scale, GameState nextGameState) {
 		super(camera);
 		batch = new SpriteBatch();
 		logo = new Texture("img/" + filename);
 		this.scale = scale;
-
-		camera.zoom = 2f;
-		camera.position.set(0, 0, 0);
-		camera.update();
+		this.nextGameState = nextGameState;
 	}
 
 	@Override
@@ -65,11 +63,21 @@ public class ImageGameState extends GameState {
 
 	@Override
 	public GameState getNextGameState() {
-		return new PlayingGameState(camera);
+		return nextGameState;
 	}
 
 	@Override
 	public void update() {
+		/*
+		 * We can't just do this once because if this game state gets passed as a next
+		 * game state to an ImageGameState, the camera will get reset to a zoom of 1 in
+		 * the dispose().
+		 *
+		 * TODO: The proper solution is creating a create() method.
+		 */
+		camera.zoom = 2f;
+		camera.position.set(0, 0, 0);
+		camera.update();
 		return;
 	}
 }

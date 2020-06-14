@@ -43,7 +43,7 @@ public class Periculum extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 320, 320 * (4 / 3));
 		shapeRenderer = new ShapeRenderer();
-		currentGameState = new ImageGameState(camera, "logo_name.png", 1/6f);
+		currentGameState = new ImageGameState(camera, "logo_name.png", 1 / 6f, new PlayingGameState(camera)));
 
 		/**
 		 * Create main font of default 16 point size.
