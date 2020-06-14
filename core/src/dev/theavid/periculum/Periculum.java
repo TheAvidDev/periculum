@@ -27,6 +27,7 @@ import dev.theavid.periculum.gamestates.SplashGameState;
 // 2020-06-04 hirundinidae - Updated comment for game state transitions  
 // 2020-05-30 TheAvidDev - Switched to a game state based approach
 public class Periculum extends ApplicationAdapter {
+	private final float TRANSITION_SPEED = 1.25f; // relative to 1 second
 	private final int TILE_WIDTH = 16;
 	private final int VIEWPORT_WIDTH = 16;
 
@@ -64,7 +65,7 @@ public class Periculum extends ApplicationAdapter {
 		 * SPACE key is pressed.
 		 */
 		if (transitionCounter != 0 || currentGameState.shouldTransition()) {
-			transitionCounter += Gdx.graphics.getDeltaTime();
+			transitionCounter += Gdx.graphics.getDeltaTime() * TRANSITION_SPEED;
 			Gdx.gl.glEnable(GL20.GL_BLEND);
 			Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 			shapeRenderer.begin(ShapeType.Filled);
@@ -72,7 +73,7 @@ public class Periculum extends ApplicationAdapter {
 			shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			shapeRenderer.end();
 			Gdx.gl.glDisable(GL20.GL_BLEND);
-			if (transitionCounter - Gdx.graphics.getDeltaTime() < 0 && transitionCounter > 0) {
+			if (transitionCounter - Gdx.graphics.getDeltaTime() * TRANSITION_SPEED < 0 && transitionCounter > 0) {
 				transitionCounter = 0;
 			}
 		}
