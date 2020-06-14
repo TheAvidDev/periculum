@@ -33,6 +33,7 @@ public class ChoosingGameState extends GameState {
 	private Event event;
 	private Player player;
 	private boolean lastEvent;
+	private boolean learning;
 
 	private EventOption chosenOption;
 	private Entity[] entities;
@@ -40,12 +41,13 @@ public class ChoosingGameState extends GameState {
 	private SpriteBatch batch = new SpriteBatch();
 
 	public ChoosingGameState(GameState originalState, OrthographicCamera camera, Event event, Player player,
-			boolean lastEvent) {
+			boolean lastEvent, boolean learning) {
 		super(camera);
 		this.originalState = originalState;
 		this.event = event;
 		this.player = player;
 		this.lastEvent = lastEvent;
+		this.learning = learning;
 
 		/**
 		 * Zoom out the camera for better font rendering.
@@ -153,12 +155,15 @@ public class ChoosingGameState extends GameState {
 	@Override
 	public GameState getNextGameState() {
 		if (chosenOption instanceof DeathOption) {
-			return new EndGameState(camera, ((DeathOption) chosenOption));
+			return new EndGameState(camera, ((DeathOption) chosenOption), learning);
 		} else {
 			if (player.shouldKill()) {
-				return new EndGameState(camera, true);
+				return new EndGameState(camera, true, learning);
 			} else if (lastEvent) {
-				return new EndGameState(camera, false);
+				if (learning) {
+					return new ImageGameState(camera, "education_complete.png", 1 / 2f, new PlayingGameState(camera, false));
+				}
+				return new EndGameState(camera, false, false);
 			}
 		}
 		return originalState;

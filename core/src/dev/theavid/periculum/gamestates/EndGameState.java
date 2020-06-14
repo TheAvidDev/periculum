@@ -30,12 +30,13 @@ public class EndGameState extends GameState {
 	private SpriteBatch batch = new SpriteBatch();
 	private Transition transition;
 	private boolean loss;
+	private boolean learning;
 
 	/**
 	 * Setup the message and icon for a "default" death caused by reaching 0 mental
 	 * stability or reaching the maximum infection risk.
 	 */
-	public EndGameState(OrthographicCamera camera, boolean loss) {
+	public EndGameState(OrthographicCamera camera, boolean loss, boolean learning) {
 		super(camera);
 		if (loss) {
 			message = "You died! Either your infection risk was too high or your mental stability dropped to 0.";
@@ -45,6 +46,7 @@ public class EndGameState extends GameState {
 			icon = new Texture("events/trophy.png");
 		}
 		this.loss = loss;
+		this.learning = learning;
 		camera.zoom = 2f;
 		camera.update();
 	}
@@ -52,11 +54,12 @@ public class EndGameState extends GameState {
 	/**
 	 * Setup the message and icon from the event that caused their immediate death.
 	 */
-	public EndGameState(OrthographicCamera camera, DeathOption deathOption) {
+	public EndGameState(OrthographicCamera camera, DeathOption deathOption, boolean learning) {
 		super(camera);
 		message = deathOption.getDeathMessage();
 		icon = new Texture("events/" + deathOption.getDeathIconFilename());
 		this.loss = true;
+		this.learning = learning;
 		camera.zoom = 2f;
 		camera.update();
 	}
@@ -119,10 +122,10 @@ public class EndGameState extends GameState {
 	@Override
 	public GameState getNextGameState() {
 		if (transition == Transition.RESTART) {
-			return new PlayingGameState(camera);
+			return new PlayingGameState(camera, learning);
 		}
 		Gdx.app.exit();
-		return new PlayingGameState(camera);
+		return new PlayingGameState(camera, learning);
 	}
 
 	private enum Transition {

@@ -44,7 +44,7 @@ public class ImageGameState extends GameState {
 		batch.draw(logo, -logo.getWidth() * scale, -logo.getHeight() * scale, logo.getWidth() * scale * 2,
 				logo.getHeight() * scale * 2);
 		Periculum.headerFont.draw(batch, "Press Space to continue.", -camera.viewportWidth / 2 + 20,
-				-camera.viewportHeight / 2 + 16, camera.viewportWidth - 40, Align.center, true);
+				-camera.viewportHeight / 2 - 16, camera.viewportWidth - 40, Align.center, true);
 		batch.end();
 	}
 
