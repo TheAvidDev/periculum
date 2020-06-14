@@ -154,6 +154,14 @@ public class ChoosingGameState extends GameState {
 	 */
 	@Override
 	public GameState getNextGameState() {
+		/**
+		 * TODO: This should have a more robust "dependency" handling mechanism, but
+		 * it's for only one event right now, so there's no point in over complicating
+		 * it.
+		 */
+		if (event == Event.FRIDGE && chosenOption == event.getOptions()[1]) {
+			PlayingGameState.eventList.remove(0);
+		}
 		if (chosenOption instanceof DeathOption) {
 			return new EndGameState(camera, ((DeathOption) chosenOption), learning);
 		} else {
@@ -161,7 +169,8 @@ public class ChoosingGameState extends GameState {
 				return new EndGameState(camera, true, learning);
 			} else if (lastEvent) {
 				if (learning) {
-					return new ImageGameState(camera, "education_complete.png", 1 / 2f, new PlayingGameState(camera, false));
+					return new ImageGameState(camera, "education_complete.png", 1 / 2f,
+							new PlayingGameState(camera, false));
 				}
 				return new EndGameState(camera, false, false);
 			}

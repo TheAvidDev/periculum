@@ -35,16 +35,17 @@ import dev.theavid.periculum.events.Event;
 public class PlayingGameState extends GameState {
 	public static Debugger debugger;
 	public static ArrayList<Entity> entityList;
+	public static ArrayList<FullEvent> eventList;
 	public static Level level;
 
 	private SpriteBatch batch = new SpriteBatch();
-	private ArrayList<FullEvent> eventList = new ArrayList<FullEvent>();
 	private boolean makingChoice = false;
 	private boolean learning;
 
 	public PlayingGameState(OrthographicCamera camera, boolean learning) {
 		super(camera);
 		entityList = new ArrayList<Entity>();
+		eventList = new ArrayList<FullEvent>();
 		// The Player entity is always the first object in the entityList
 		entityList.add(new Player(1260, 1010));
 		level = new Level();
@@ -55,7 +56,6 @@ public class PlayingGameState extends GameState {
 			// TODO: replace with learning events
 			eventList.add(new FullEvent(Event.COMPLETE_ISOLATION, new Vector2(1351, 980)));
 		} else {
-			// TODO: make fridge remove shopping event
 			eventList.add(new FullEvent(Event.FRIDGE, new Vector2(1354, 949)));
 			eventList.add(new FullEvent(Event.CASH, new Vector2(1351, 949)));
 			eventList.add(new FullEvent(Event.MASK, new Vector2(1382, 883)));
@@ -72,7 +72,7 @@ public class PlayingGameState extends GameState {
 			eventList.add(new FullEvent(Event.FRIEND, new Vector2(1291, 1018)));
 		}
 
-		// Kickstart the game by adding a first event
+		// Kickstart the game by adding the first event
 		entityList.add(new Notifier(eventList.get(0).getX(), eventList.get(0).getY()));
 	}
 
