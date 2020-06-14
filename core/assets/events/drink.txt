@@ -1,4 +1,4 @@
-Your good friend Amy offers you a sip of her Homemade Rainbow Bubble Tea™\
+Your good friend Amy offers you a sip of her Homemade Rainbow Bubble Tea
   3
   Yes, you'd like a sip of her gorgeous drink|3|1
   No, you're good, thanks|0|1

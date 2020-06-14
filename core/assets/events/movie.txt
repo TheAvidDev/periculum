@@ -1,4 +1,4 @@
-Businesses are starting to shut down. Luckily for you and your friends, the crowded and unclean movie theater is still open. Your friend James invite you to see a movie with the squad. Should you accept his invitation? 
+The crowded and unclean movie theater is still open. Your friend James invite you to see a movie with the squad. Should you accept his invitation?
   2
-  Yes, you accept the invitation|2|3
-  No, you'll pass this time |-1|2
+  Yes, you accept the invitation|2|3|Someone contagious coughed on you and you get sick.|movie.png
+  No, you'll pass this time |-1|-2

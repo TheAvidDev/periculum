@@ -1,4 +1,4 @@
 You're getting ready to eat dinner. Yum! Should you wash your hands before eating?
   2
   Yes, you wash your hands before eating|-1|0
-  No, you're really hungry|1|1
+  No, you're really hungry|1|1|You die after you ingest some virus from your unclean hands.|sink.png
