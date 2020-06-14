@@ -20,6 +20,7 @@ public enum KeyMap {
 	RIGHT(Keys.D, Keys.RIGHT),
 	CONTROL(Keys.CONTROL_LEFT, Keys.CONTROL_RIGHT),
 	DEBUG(true, Keys.F1),
+	DEBUG_SKIP_TUTORIAL(true, Keys.F2),
 	TRANSITION(Keys.SPACE),
 	QUIT(Keys.Q);
 

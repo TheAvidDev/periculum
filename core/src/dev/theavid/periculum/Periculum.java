@@ -13,8 +13,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 import dev.theavid.periculum.entities.EntityType;
 import dev.theavid.periculum.gamestates.GameState;
-import dev.theavid.periculum.gamestates.PlayingGameState;
 import dev.theavid.periculum.gamestates.ImageGameState;
+import dev.theavid.periculum.gamestates.PlayingGameState;
 
 /**
  * Main game class which handles game states and the transitions between them.
@@ -61,6 +61,12 @@ public class Periculum extends ApplicationAdapter {
 
 	@Override
 	public void render() {
+		if (KeyMap.DEBUG_SKIP_TUTORIAL.isPressed()) {
+			transitionCounter = -1;
+			currentGameState.dispose();
+			currentGameState = new PlayingGameState(camera, false);
+		}
+
 		currentGameState.update();
 		currentGameState.render();
 
