@@ -110,8 +110,12 @@ public class PlayingGameState extends GameState {
 			batch.draw(entityList.get(i).getTextureRegion(), entityList.get(i).getX(), entityList.get(i).getY());
 		}
 		batch.end();
-
+		
 		level.renderForeground(camera);
+		
+		for (Entity entity : entityList) {
+			entity.additionalRender(camera);
+		}
 		debugger.render();
 	}
 
