@@ -41,10 +41,13 @@ public class EndGameState extends GameState {
 		if (loss) {
 			message = "You died! Either your infection risk was too high or your mental stability dropped to 0.";
 			icon = new Texture("events/skull.png");
+			music = Gdx.audio.newMusic(Gdx.files.internal("audio/loss.mp3"));
 		} else {
 			message = "Congratulations! You win!\nYou passed all of the challenges that came your way, making choices that lead you to success.";
 			icon = new Texture("events/trophy.png");
+			music = Gdx.audio.newMusic(Gdx.files.internal("audio/win.mp3"));
 		}
+		music.setLooping(true);
 		this.loss = loss;
 		this.learning = learning;
 		camera.zoom = 2f;
@@ -58,6 +61,8 @@ public class EndGameState extends GameState {
 		super(camera);
 		message = deathOption.getDeathMessage();
 		icon = new Texture("events/" + deathOption.getDeathIconFilename());
+		music = Gdx.audio.newMusic(Gdx.files.internal("audio/loss.mp3"));
+		music.setLooping(true);
 		this.loss = true;
 		this.learning = learning;
 		camera.zoom = 2f;

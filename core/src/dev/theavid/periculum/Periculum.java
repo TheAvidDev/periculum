@@ -48,6 +48,7 @@ public class Periculum extends ApplicationAdapter {
 					new ImageGameState(camera, "instructions2.png", 1 / 2f,
 						new ImageGameState(camera, "instructions3.png", 1 / 2f,
 							new PlayingGameState(camera, true)))));
+		currentGameState.playMusic();
 
 		/**
 		 * Create main font of default 16 point size.
@@ -82,6 +83,7 @@ public class Periculum extends ApplicationAdapter {
 			shapeRenderer.setColor(0, 0, 0, Math.abs(transitionCounter));
 			shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			shapeRenderer.end();
+			currentGameState.setMusicVolume(1-Math.abs(transitionCounter));
 			Gdx.gl.glDisable(GL20.GL_BLEND);
 			if (transitionCounter - Gdx.graphics.getDeltaTime() * TRANSITION_SPEED < 0 && transitionCounter > 0) {
 				transitionCounter = 0;
@@ -96,8 +98,11 @@ public class Periculum extends ApplicationAdapter {
 			 */
 			if (!(currentGameState instanceof PlayingGameState)) {
 				currentGameState.dispose();
+				currentGameState.stopMusic();
 			}
+
 			currentGameState = currentGameState.getNextGameState();
+			currentGameState.playMusic();
 		}
 	}
 

@@ -33,6 +33,12 @@ public class ImageGameState extends GameState {
 		logo = new Texture("img/" + filename);
 		this.scale = scale;
 		this.nextGameState = nextGameState;
+
+		/**
+		 * Setup music.
+		 */
+		music = Gdx.audio.newMusic(Gdx.files.internal("audio/loading.wav"));
+		music.setLooping(true);
 	}
 
 	@Override

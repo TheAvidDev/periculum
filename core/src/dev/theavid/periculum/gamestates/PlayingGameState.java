@@ -52,12 +52,15 @@ public class PlayingGameState extends GameState {
 
 	public PlayingGameState(OrthographicCamera camera, boolean learning) {
 		super(camera);
+		/**
+		 * Create the entity and event lists with the player as the first entity.
+		 */
 		entityList = new ArrayList<Entity>();
 		eventList = new ArrayList<FullEvent>();
-		// The Player entity is always the first object in the entityList
 		entityList.add(new Player(1260, 1010));
-		level = new Level();
-		debugger = new Debugger(getPlayer(), level, camera);
+
+		music = Gdx.audio.newMusic(Gdx.files.internal("audio/town.mp3"));
+		music.setLooping(true);
 		this.learning = learning;
 
 		if (this.learning) {
@@ -95,6 +98,13 @@ public class PlayingGameState extends GameState {
 			eventList.add(new FullEvent(Event.COMPLETE_ISOLATION, new Vector2(1351, 980)));
 			eventList.add(new FullEvent(Event.FRIEND, new Vector2(1291, 1018)));
 		}
+
+		/**
+		 * Setup the level and debugger after adding all other sprites because the level
+		 * adds entities that we don't want to appear on top of players.
+		 */
+		level = new Level();
+		debugger = new Debugger(getPlayer(), level, camera);
 
 		// Kickstart the game by adding the first event
 		entityList.add(new Notifier(eventList.get(0).getX(), eventList.get(0).getY()));
@@ -201,6 +211,14 @@ public class PlayingGameState extends GameState {
 			entityList.add(new Notifier(eventList.get(0).getX(), eventList.get(0).getY()));
 		}
 		return new ChoosingGameState(this, camera, currentEvent, (Player) getPlayer(), isLastEvent, learning);
+	}
+
+	/**
+	 * Never have the volume drop below 25% because we want this music to keep
+	 * playing behind some other states.
+	 */
+	public void setMusicVolume(float volume) {
+		super.setMusicVolume(Math.max(0.25f, volume));
 	}
 
 	class FullEvent {
