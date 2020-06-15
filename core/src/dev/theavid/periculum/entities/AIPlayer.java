@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
  */
 // 2020-06-13 TheAvidDev - Created autonomous player
 public class AIPlayer extends Player {
-	private EntityType[] playerTypes = { EntityType.PLAYER2, EntityType.PLAYER3 };
+	private EntityType[] playerTypes = { EntityType.PLAYER2, EntityType.PLAYER3 , EntityType.PLAYER4, EntityType.PLAYER5};
 
 	private float movementCounter = 0;
 	private float movementTime = 0;
