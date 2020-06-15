@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -34,8 +35,13 @@ public class Level {
 	private OrthogonalTiledMapRenderer renderer;
 	private boolean collisionMap[][];
 
-	public Level() {
-		map = new TmxMapLoader().load("tiles/map.tmx");
+	public Level(boolean learning) {
+		if (learning) {
+			map = new TmxMapLoader().load("tiles/learningMap.tmx");
+		} else {
+			map = new TmxMapLoader().load("tiles/map.tmx");
+		}
+		TiledMapTileSet tileset = new TiledMapTileSet();
 		makeCollisionMap();
 		for (Vector2 doorPosition : DOOR_POSITIONS) {
 			PlayingGameState.entityList.add(new Door(doorPosition.x * 16, doorPosition.y * 16));

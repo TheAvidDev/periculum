@@ -103,7 +103,7 @@ public class PlayingGameState extends GameState {
 		 * Setup the level and debugger after adding all other sprites because the level
 		 * adds entities that we don't want to appear on top of players.
 		 */
-		level = new Level();
+		level = new Level(this.learning);
 		debugger = new Debugger(getPlayer(), level, camera);
 
 		// Kickstart the game by adding the first event
@@ -142,7 +142,11 @@ public class PlayingGameState extends GameState {
 
 	@Override
 	public void render() {
-		Gdx.gl.glClearColor(0.506f, 0.984f, 0.294f, 1);
+		if (learning) {
+			Gdx.gl.glClearColor(0.000f, 0.698f, 0.580f, 1);
+		} else {
+			Gdx.gl.glClearColor(0.506f, 0.984f, 0.294f, 1);
+		}
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		level.renderBackground(camera);
 
