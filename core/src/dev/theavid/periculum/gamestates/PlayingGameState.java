@@ -93,7 +93,7 @@ public class PlayingGameState extends GameState {
 			eventList.add(new FullEvent(Event.MOVIE, new Vector2(1141, 792)));
 			eventList.add(new FullEvent(Event.DRINK, new Vector2(1321, 775)));
 			eventList.add(new FullEvent(Event.CLOTHES, new Vector2(1385, 881)));
-			eventList.add(new FullEvent(Event.COUGH, new Vector2(1417, 1043)));
+			eventList.add(new FullEvent(Event.COUGH, new Vector2(1400, 1043)));
 			eventList.add(new FullEvent(Event.SINK, new Vector2(1384, 1038)));
 			eventList.add(new FullEvent(Event.COMPLETE_ISOLATION, new Vector2(1351, 980)));
 			eventList.add(new FullEvent(Event.FRIEND, new Vector2(1291, 1018)));
