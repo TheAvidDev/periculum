@@ -1,0 +1,3 @@
+This is your dorm. Events that happen at home will be shown here. Proceed to the washroom.
+  1
+  Continue|0|0

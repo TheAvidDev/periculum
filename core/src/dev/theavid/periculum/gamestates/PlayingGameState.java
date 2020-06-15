@@ -22,6 +22,7 @@ import dev.theavid.periculum.events.Event;
  * @author TheAvidDev
  * @author hirundinidae
  */
+// 2020-06-14 hirundinidae - Added new learning events to eventList
 // 2020-06-13 TheAvidDev - Added learning level distinction
 // 2020-06-12 hirundinidae - Added Events in desired order to eventList
 // 2020-06-04 hirundinidae - Added new GameState methods
@@ -60,8 +61,11 @@ public class PlayingGameState extends GameState {
 		this.learning = learning;
 
 		if (this.learning) {
-			// TODO: replace with learning events
-			eventList.add(new FullEvent(Event.COMPLETE_ISOLATION, new Vector2(1351, 980)));
+			eventList.add(new FullEvent(Event.DORM, new Vector2(1365, 965)));
+			eventList.add(new FullEvent(Event.WASHROOM, new Vector2(1408,1041)));
+			eventList.add(new FullEvent(Event.POND, new Vector2(1259,711)));
+			eventList.add(new FullEvent(Event.SCHOOL, new Vector2(1028,870)));
+			eventList.add(new FullEvent(Event.CONFIRM, new Vector2(1204,841)));
 		} else {
 			/**
 			 * Spawn in random walking players.
@@ -86,6 +90,7 @@ public class PlayingGameState extends GameState {
 			eventList.add(new FullEvent(Event.MOVIE, new Vector2(1141, 792)));
 			eventList.add(new FullEvent(Event.DRINK, new Vector2(1321, 775)));
 			eventList.add(new FullEvent(Event.CLOTHES, new Vector2(1385, 881)));
+			eventList.add(new FullEvent(Event.COUGH, new Vector2(1417, 1043)));
 			eventList.add(new FullEvent(Event.SINK, new Vector2(1384, 1038)));
 			eventList.add(new FullEvent(Event.COMPLETE_ISOLATION, new Vector2(1351, 980)));
 			eventList.add(new FullEvent(Event.FRIEND, new Vector2(1291, 1018)));

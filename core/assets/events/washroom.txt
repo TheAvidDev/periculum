@@ -1,0 +1,3 @@
+This is a washroom. Some of the choices you will make here are crucial to your success. Proceed to the pond, below the dorm.
+  1 
+  Continue|0|0

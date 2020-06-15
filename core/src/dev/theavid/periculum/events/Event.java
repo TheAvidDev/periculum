@@ -9,6 +9,7 @@ import com.badlogic.gdx.files.FileHandle;
  * 
  * @author TheAvidDev
  */
+// 2020-06-16 hirundinidae - Added learning events 
 // 2020-06-12 hirundinidae - Added events 
 // 2020-06-05 TheAvidDev - Created event enum
 public enum Event {
@@ -25,8 +26,13 @@ public enum Event {
 	MASK("mask.txt"),
 	MOVIE("movie.txt"),
 	SINK("sink.txt"),
-	SNEEZE("sneeze.txt"),
-	WASH_HANDS("washhands.txt");
+	SNEEZE("sneeze.txt"),	
+	WASH_HANDS("washhands.txt"),
+	DORM("dorm.txt"),
+	WASHROOM("washroom.txt"),
+	POND("pond.txt"),
+	SCHOOL("school.txt"),
+	CONFIRM("confirm.txt");
 
 	private String prompt;
 	private EventOption[] options;

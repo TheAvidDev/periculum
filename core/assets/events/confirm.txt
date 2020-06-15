@@ -1,0 +1,4 @@
+And that is a tour of your campus! Got it? 
+  2
+  Yes, let's play!|0|0
+  No, let me go.|0|0|You quit the game.|quit.png
