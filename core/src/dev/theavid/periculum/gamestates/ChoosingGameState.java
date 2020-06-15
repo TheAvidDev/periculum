@@ -29,14 +29,14 @@ public class ChoosingGameState extends GameState {
 	private final float UI_PROMPT_OFFSET_X = 40;
 	private final float UI_OPTION_OFFSET_X = 40;
 
+	protected Event event;
 	private GameState originalState;
-	private Event event;
 	private Player player;
 	private boolean lastEvent;
 	private boolean learning;
 
-	private EventOption chosenOption;
-	private Entity[] entities;
+	protected EventOption chosenOption;
+	protected Entity[] entities;
 
 	private SpriteBatch batch = new SpriteBatch();
 
@@ -170,8 +170,12 @@ public class ChoosingGameState extends GameState {
 				return new EndGameState(camera, true, learning);
 			} else if (lastEvent) {
 				if (learning) {
+					/**
+					 * Mark that we have completed the learning level.
+					 */
+					LevelSelectGameState.learning = false;
 					return new ImageGameState(camera, "education_complete.png", 1 / 2f,
-							new PlayingGameState(camera, false));
+							new LevelSelectGameState(camera));
 				}
 				return new EndGameState(camera, false, false);
 			}

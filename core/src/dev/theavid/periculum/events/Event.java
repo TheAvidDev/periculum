@@ -32,7 +32,8 @@ public enum Event {
 	WASHROOM("washroom.txt"),
 	POND("pond.txt"),
 	SCHOOL("school.txt"),
-	CONFIRM("confirm.txt");
+	CONFIRM("confirm.txt"),
+	CHOICE("choice.txt");
 
 	private String prompt;
 	private EventOption[] options;

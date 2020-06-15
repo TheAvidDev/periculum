@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import dev.theavid.periculum.entities.EntityType;
 import dev.theavid.periculum.gamestates.GameState;
 import dev.theavid.periculum.gamestates.ImageGameState;
+import dev.theavid.periculum.gamestates.LevelSelectGameState;
 import dev.theavid.periculum.gamestates.PlayingGameState;
 
 /**
@@ -44,10 +45,7 @@ public class Periculum extends ApplicationAdapter {
 		camera.setToOrtho(false, 320, 320 * (4 / 3));
 		shapeRenderer = new ShapeRenderer();
 		currentGameState = new ImageGameState(camera, "logo_name.png", 1 / 6f,
-				new ImageGameState(camera, "instructions1.png", 1 / 2f,
-					new ImageGameState(camera, "instructions2.png", 1 / 2f,
-						new ImageGameState(camera, "instructions3.png", 1 / 2f,
-							new PlayingGameState(camera, true)))));
+				new LevelSelectGameState(camera));
 		currentGameState.playMusic();
 
 		/**

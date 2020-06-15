@@ -129,8 +129,7 @@ public class EndGameState extends GameState {
 		if (transition == Transition.RESTART) {
 			return new PlayingGameState(camera, learning);
 		}
-		Gdx.app.exit();
-		return new PlayingGameState(camera, learning);
+		return new LevelSelectGameState(camera);
 	}
 
 	private enum Transition {

@@ -1,0 +1,5 @@
+Periculum Main Menu - Press Q to exit the game.
+  3
+  Instructions|0|0
+  Learning Level|0|0
+  Main level|0|0
