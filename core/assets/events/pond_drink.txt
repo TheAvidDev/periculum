@@ -1,0 +1,4 @@
+You glance at your campus pond, the one people spit and ducks swim in, and suddenly you have an urge to drink from it.
+  2
+  Wait no, that's disgusting.|0|0
+  Lick off every single drop of water.|0|0|Wow, what a surprise that was. Seems like the pond was infected of every disease on Earth. What did you think was going to happen?|skull.png

@@ -25,6 +25,7 @@ public enum Event {
 	KEVIN("kevin.txt"),
 	MASK("mask.txt"),
 	MOVIE("movie.txt"),
+	POND_DEATH("pond_death.txt"),
 	SINK("sink.txt"),
 	SNEEZE("sneeze.txt"),	
 	WASH_HANDS("washhands.txt"),
